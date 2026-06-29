@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./PromoTiles.css";
 
 const tiles = [
   {
     id: 1,
     lines: ["BEST", "SELLERS"],
-    href: "#best-sellers",
+    to: "/collections/best-sellers",
     alt: "Best sellers",
     image:
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80",
@@ -13,7 +14,7 @@ const tiles = [
   {
     id: 2,
     lines: ["WINNING", "OUTERWEAR"],
-    href: "#outerwear",
+    to: "/collections/all-products?department=Outerwear",
     alt: "Winning outerwear",
     image:
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1000&q=80",
@@ -24,7 +25,7 @@ const PromoTiles = () => (
   <section className="pt">
     <div className="pt-grid">
       {tiles.map((t) => (
-        <a className="pt-tile" href={t.href} key={t.id}>
+        <Link className="pt-tile" to={t.to} key={t.id}>
           <img className="pt-img" src={t.image} alt={t.alt} loading="lazy" />
           <div className="pt-content">
             <h2 className="pt-title">
@@ -33,7 +34,7 @@ const PromoTiles = () => (
               ))}
             </h2>
           </div>
-        </a>
+        </Link>
       ))}
     </div>
   </section>

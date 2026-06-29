@@ -58,13 +58,34 @@ UNI_STYLE = {
     "Washington": ("W", "#4b2e83", "#b7a57a"),
 }
 
-IMAGES = [
-    "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80",
-    "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=700&q=80",
-    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80",
-    "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=700&q=80",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80",
-]
+# Apparel keyword per department -> drives a topical product image.
+DEPT_KEYWORDS = {
+    "Quarter Zips": "pullover",
+    "Polos": "polo,shirt",
+    "Hoodies": "hoodie",
+    "Sweatshirts": "sweatshirt",
+    "T-Shirts": "tshirt",
+    "Pants": "joggers",
+    "Outerwear": "jacket",
+    "Hats": "cap",
+    "Accessories": "wristwatch",
+}
+
+GENDER_KEYWORDS = {"Men": "man", "Women": "woman", "Kids": "kids"}
+
+
+def product_image(department, gender, idx):
+    """A clothing/cap image that matches the product type & gender.
+
+    Uses LoremFlickr keyword images; `lock=idx` makes each one unique so no
+    two products share an image, while the keywords keep them on-topic.
+    """
+    parts = [DEPT_KEYWORDS.get(department, "clothing")]
+    g = GENDER_KEYWORDS.get(gender)
+    if g:
+        parts.append(g)
+    keywords = ",".join(parts)
+    return f"https://loremflickr.com/600/750/{keywords}?lock={idx}"
 
 MENS_SIZES = ["S", "M", "L", "XL", "XXL"]
 WOMENS_SIZES = ["XS", "S", "M", "L", "XL"]
@@ -129,6 +150,9 @@ def build_products(categories, brands, universities):
         color = color_override or school_color
         stock = 0 if idx % 7 == 0 else (idx % 12) + 2
         sku = f"{(34202898 + idx * 137):09d}"
+        is_best_seller = (idx % 3 == 0)
+        on_sale = (idx % 4 == 1)
+        compare_at_price = round(price * 1.4, 2) if on_sale else None
         product = Product(
             slug=f"{slugify(name)}-{idx}",
             name=name,
@@ -137,13 +161,17 @@ def build_products(categories, brands, universities):
             university_id=universities[school].id,
             category_id=categories[cat_slug].id,
             price=price,
-            image_url=IMAGES[idx % len(IMAGES)],
+            # Topical clothing/cap image matching the product type & gender,
+            # unique per product (no repeats).
+            image_url=product_image(dept, gender, idx),
             color=color,
             sizes=sizes,
             gender=gender,
             department=dept,
             stock=stock,
             in_stock=(stock > 0),
+            is_best_seller=is_best_seller,
+            compare_at_price=compare_at_price,
         )
         idx += 1
         return product

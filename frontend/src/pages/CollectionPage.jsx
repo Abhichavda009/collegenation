@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { apiFetch } from "../lib/api";
@@ -7,6 +7,8 @@ import "./CollectionPage.css";
 
 const CATEGORY_NAMES = {
   "new-arrivals": "New Arrivals",
+  "best-sellers": "Best Sellers",
+  "all-products": "All Products",
   mens: "Men's",
   womens: "Women's",
   kids: "Kids",
@@ -16,6 +18,7 @@ const CATEGORY_NAMES = {
 
 const SORT_OPTIONS = [
   { value: "featured", label: "Featured" },
+  { value: "best-selling", label: "Best selling" },
   { value: "newest", label: "Newest" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
@@ -60,7 +63,11 @@ function Accordion({ title, count, children, defaultOpen = false }) {
 
 const CollectionPage = () => {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
   const isNewArrivals = slug === "new-arrivals";
+  const isBestSellers = slug === "best-sellers";
+  const isAllProducts = slug === "all-products";
+  const isVirtual = isNewArrivals || isBestSellers || isAllProducts; // not a real category
   const categoryName = CATEGORY_NAMES[slug] || slug;
 
   const [facets, setFacets] = useState(null);
@@ -76,24 +83,43 @@ const CollectionPage = () => {
   const [view, setView] = useState("grid");
   const [page, setPage] = useState(1);
 
-  // Reset everything when the category changes, then load facets.
+  // When the category OR the URL query changes, initialise filters from the
+  // URL (so a link like /collections/all-products?department=Outerwear opens
+  // pre-filtered) and load the facet list.
+  const spString = searchParams.toString();
   useEffect(() => {
-    setSelected({});
-    setPriceMin("");
-    setPriceMax("");
-    setInStockOnly(false);
-    setSort(isNewArrivals ? "newest" : "featured");
+    const next = {};
+    FACETS.forEach((f) => {
+      const vals = searchParams.getAll(f.param);
+      if (vals.length) next[f.param] = vals;
+    });
+    setSelected(next);
+    setPriceMin(searchParams.get("min_price") || "");
+    setPriceMax(searchParams.get("max_price") || "");
+    setInStockOnly(searchParams.get("in_stock") === "true");
+    setSort(
+      searchParams.get("sort") ||
+        (isBestSellers ? "best-selling" : isNewArrivals ? "newest" : "featured")
+    );
     setPage(1);
-    apiFetch(isNewArrivals ? `/api/filters` : `/api/filters?category=${slug}`)
+
+    const facetUrl = isBestSellers
+      ? `/api/filters?best_seller=true`
+      : isVirtual
+      ? `/api/filters`
+      : `/api/filters?category=${slug}`;
+    apiFetch(facetUrl)
       .then((r) => r.json())
       .then(setFacets)
       .catch(() => setFacets(null));
-  }, [slug, isNewArrivals]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, spString]);
 
   const buildParams = useCallback(
     (pageNum) => {
       const params = new URLSearchParams();
-      if (!isNewArrivals) params.set("category", slug);
+      if (!isVirtual) params.set("category", slug);
+      if (isBestSellers) params.set("best_seller", "true");
       Object.entries(selected).forEach(([param, values]) =>
         (values || []).forEach((v) => params.append(param, v))
       );
@@ -105,7 +131,7 @@ const CollectionPage = () => {
       params.set("page_size", PAGE_SIZE);
       return params;
     },
-    [slug, selected, priceMin, priceMax, inStockOnly, sort]
+    [slug, isVirtual, isBestSellers, selected, priceMin, priceMax, inStockOnly, sort]
   );
 
   // Fetch products whenever the query changes.
@@ -155,6 +181,33 @@ const CollectionPage = () => {
   };
 
   const facetItems = (key) => (facets && facets[key]) || [];
+
+  // Removable filter chips (mirrors the applied filters)
+  const chips = [];
+  Object.entries(selected).forEach(([param, vals]) =>
+    (vals || []).forEach((v) =>
+      chips.push({ label: v, onRemove: () => toggle(param, v) })
+    )
+  );
+  if (priceMin || priceMax) {
+    chips.push({
+      label: `$${priceMin || 0} – $${priceMax || "∞"}`,
+      onRemove: () => {
+        setPriceMin("");
+        setPriceMax("");
+        setPage(1);
+      },
+    });
+  }
+  if (inStockOnly) {
+    chips.push({
+      label: "In stock",
+      onRemove: () => {
+        setInStockOnly(false);
+        setPage(1);
+      },
+    });
+  }
 
   return (
     <>
@@ -226,6 +279,21 @@ const CollectionPage = () => {
               </div>
             </div>
           </div>
+
+          {chips.length > 0 && (
+            <div className="cp-chips">
+              {chips.map((c, i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className="cp-chip"
+                  onClick={c.onRemove}
+                >
+                  {c.label} <span className="cp-chip-x">×</span>
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="cp-body">
             {/* Sidebar filters */}
@@ -310,15 +378,34 @@ const CollectionPage = () => {
                         key={p.id}
                       >
                         <div className="cp-card-media">
-                          {!p.in_stock && (
-                            <span className="cp-soldout">Sold Out</span>
-                          )}
+                          {!p.in_stock ? (
+                            <span className="cp-badge cp-badge-out">
+                              Out of Stock
+                            </span>
+                          ) : p.compare_at_price ? (
+                            <span className="cp-badge cp-badge-sale">Sale</span>
+                          ) : p.is_best_seller ? (
+                            <span className="cp-badge cp-badge-best">
+                              Best Seller
+                            </span>
+                          ) : null}
                           <img src={p.image_url} alt={p.name} loading="lazy" />
                         </div>
                         <div className="cp-card-info">
                           <span className="cp-card-brand">{p.brand}</span>
                           <span className="cp-card-name">{p.name}</span>
-                          <span className="cp-card-price">{money(p.price)}</span>
+                          <span
+                            className={`cp-card-price${
+                              p.compare_at_price ? " is-sale" : ""
+                            }`}
+                          >
+                            {money(p.price)}
+                            {p.compare_at_price && (
+                              <span className="cp-card-was">
+                                {money(p.compare_at_price)}
+                              </span>
+                            )}
+                          </span>
                         </div>
                       </Link>
                     ))}

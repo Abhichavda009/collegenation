@@ -1,14 +1,27 @@
+import re
+import shutil
+import uuid
+from pathlib import Path
 from typing import List, Optional
 
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from database import get_db
-from models import Brand, Category, Product, University
+try:
+    from .database import get_db
+    from .models import Brand, Category, Product, University
+except ImportError:
+    from database import get_db
+    from models import Brand, Category, Product, University
 
 app = FastAPI(title="College Nation API")
+UPLOAD_DIR = Path(__file__).resolve().parent / "uploads"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,11 +33,174 @@ app.add_middleware(
 
 SORT_OPTIONS = {
     "featured": (Product.id.asc(),),
+    "best-selling": (Product.is_best_seller.desc(), Product.id.asc()),
     "newest": (Product.created_at.desc(), Product.id.desc()),
     "price-asc": (Product.price.asc(),),
     "price-desc": (Product.price.desc(),),
     "name-asc": (Product.name.asc(),),
 }
+
+ADMIN_EMAIL = "admin123@gmail.com"
+
+
+class ProductCreate(BaseModel):
+    admin_email: str
+    name: str = Field(..., min_length=2)
+    brand: str = Field(..., min_length=1)
+    university: str = Field(..., min_length=1)
+    category_slug: str = Field(..., min_length=1)
+    price: float = Field(..., ge=0)
+    image_url: str = Field(..., min_length=1)
+    color: Optional[str] = None
+    sizes: List[str] = Field(default_factory=list)
+    gender: Optional[str] = None
+    department: Optional[str] = None
+    stock: int = Field(0, ge=0)
+    sku: Optional[str] = None
+    is_best_seller: bool = False
+    compare_at_price: Optional[float] = Field(None, ge=0)
+
+
+def slugify(value: str) -> str:
+    value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
+    return re.sub(r"-+", "-", value)
+
+
+def unique_product_slug(db: Session, name: str) -> str:
+    base = slugify(name) or "product"
+    slug = base
+    n = 1
+    while db.query(Product).filter(Product.slug == slug).first():
+        n += 1
+        slug = f"{base}-{n}"
+    return slug
+
+
+def save_product_image(image: UploadFile) -> str:
+    if not image.content_type or not image.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="Upload an image file")
+
+    suffix = Path(image.filename or "").suffix.lower()
+    if suffix not in {".jpg", ".jpeg", ".png", ".webp", ".gif"}:
+        suffix = ".jpg"
+
+    filename = f"{uuid.uuid4().hex}{suffix}"
+    target = UPLOAD_DIR / filename
+    with target.open("wb") as out:
+        shutil.copyfileobj(image.file, out)
+    return f"/uploads/{filename}"
+
+
+def create_product_row(
+    db: Session,
+    *,
+    name: str,
+    brand_name: str,
+    university_name: str,
+    category_slug: str,
+    price: float,
+    image_url: str,
+    color: Optional[str],
+    sizes: List[str],
+    gender: Optional[str],
+    department: Optional[str],
+    stock: int,
+    sku: Optional[str],
+    is_best_seller: bool,
+    compare_at_price: Optional[float],
+) -> Product:
+    category = db.query(Category).filter(Category.slug == category_slug).first()
+    if not category:
+        raise HTTPException(status_code=400, detail="Category not found")
+
+    university = db.query(University).filter(University.name == university_name).first()
+    if not university:
+        raise HTTPException(status_code=400, detail="University not found")
+
+    brand_clean = brand_name.strip()
+    brand = db.query(Brand).filter(Brand.name == brand_clean).first()
+    if not brand:
+        brand = Brand(name=brand_clean)
+        db.add(brand)
+        db.flush()
+
+    product = Product(
+        slug=unique_product_slug(db, name),
+        name=name.strip(),
+        sku=sku.strip() if sku else None,
+        brand_id=brand.id,
+        university_id=university.id,
+        category_id=category.id,
+        price=price,
+        image_url=image_url,
+        color=(color or "").strip() or None,
+        sizes=[s.strip() for s in sizes if s.strip()],
+        gender=(gender or "").strip() or None,
+        department=(department or "").strip() or None,
+        stock=stock,
+        in_stock=stock > 0,
+        is_best_seller=is_best_seller,
+        compare_at_price=compare_at_price,
+    )
+    db.add(product)
+    db.commit()
+    db.refresh(product)
+    return product
+
+
+def update_product_row(
+    db: Session,
+    product: Product,
+    *,
+    name: str,
+    brand_name: str,
+    university_name: str,
+    category_slug: str,
+    price: float,
+    image_url: Optional[str],
+    color: Optional[str],
+    sizes: List[str],
+    gender: Optional[str],
+    department: Optional[str],
+    stock: int,
+    sku: Optional[str],
+    is_best_seller: bool,
+    compare_at_price: Optional[float],
+) -> Product:
+    category = db.query(Category).filter(Category.slug == category_slug).first()
+    if not category:
+        raise HTTPException(status_code=400, detail="Category not found")
+
+    university = db.query(University).filter(University.name == university_name).first()
+    if not university:
+        raise HTTPException(status_code=400, detail="University not found")
+
+    brand_clean = brand_name.strip()
+    brand = db.query(Brand).filter(Brand.name == brand_clean).first()
+    if not brand:
+        brand = Brand(name=brand_clean)
+        db.add(brand)
+        db.flush()
+
+    product.name = name.strip()
+    product.sku = sku.strip() if sku else None
+    product.brand_id = brand.id
+    product.university_id = university.id
+    product.category_id = category.id
+    product.price = price
+    if image_url:
+        product.image_url = image_url
+    product.color = (color or "").strip() or None
+    product.sizes = [s.strip() for s in sizes if s.strip()]
+    product.gender = (gender or "").strip() or None
+    product.department = (department or "").strip() or None
+    product.stock = stock
+    product.in_stock = stock > 0
+    product.is_best_seller = is_best_seller
+    product.compare_at_price = compare_at_price
+    db.commit()
+    db.refresh(product)
+    return product
 
 
 def serialize(p: Product) -> dict:
@@ -45,6 +221,10 @@ def serialize(p: Product) -> dict:
         "department": p.department,
         "stock": p.stock,
         "in_stock": p.in_stock,
+        "is_best_seller": p.is_best_seller,
+        "compare_at_price": float(p.compare_at_price)
+        if p.compare_at_price is not None
+        else None,
     }
 
 
@@ -116,6 +296,7 @@ def brands_list(db: Session = Depends(get_db)):
 @app.get("/api/products")
 def products(
     category: Optional[str] = None,
+    search: Optional[str] = None,
     color: Optional[List[str]] = Query(None),
     size: Optional[List[str]] = Query(None),
     gender: Optional[List[str]] = Query(None),
@@ -125,6 +306,7 @@ def products(
     min_price: Optional[float] = None,
     max_price: Optional[float] = None,
     in_stock: Optional[bool] = None,
+    best_seller: Optional[bool] = None,
     sort: str = "featured",
     page: int = 1,
     page_size: int = 24,
@@ -139,6 +321,10 @@ def products(
 
     if category:
         q = q.filter(Category.slug == category)
+    if search:
+        q = q.filter(Product.name.ilike(f"%{search.strip()}%"))
+    if best_seller:
+        q = q.filter(Product.is_best_seller.is_(True))
 
     q = apply_filters(
         q, color, size, gender, department, university, brand,
@@ -170,14 +356,165 @@ def product_detail(slug: str, db: Session = Depends(get_db)):
     return serialize(p)
 
 
+@app.post("/api/admin/products")
+def admin_create_product(payload: ProductCreate, db: Session = Depends(get_db)):
+    if payload.admin_email.strip().lower() != ADMIN_EMAIL:
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    product = create_product_row(
+        db,
+        name=payload.name,
+        brand_name=payload.brand,
+        university_name=payload.university,
+        category_slug=payload.category_slug,
+        price=payload.price,
+        image_url=payload.image_url.strip(),
+        color=payload.color,
+        sizes=payload.sizes,
+        gender=payload.gender,
+        department=payload.department,
+        stock=payload.stock,
+        sku=payload.sku,
+        is_best_seller=payload.is_best_seller,
+        compare_at_price=payload.compare_at_price,
+    )
+    return serialize(product)
+
+
+@app.post("/api/admin/products/form")
+def admin_create_product_form(
+    admin_email: str = Form(...),
+    name: str = Form(...),
+    brand: str = Form(...),
+    university: str = Form(...),
+    category_slug: str = Form(...),
+    price: float = Form(...),
+    color: Optional[str] = Form(None),
+    sizes: str = Form(""),
+    gender: Optional[str] = Form(None),
+    department: Optional[str] = Form(None),
+    stock: int = Form(0),
+    sku: Optional[str] = Form(None),
+    is_best_seller: bool = Form(False),
+    compare_at_price: Optional[float] = Form(None),
+    image: UploadFile = File(...),
+    db: Session = Depends(get_db),
+):
+    if admin_email.strip().lower() != ADMIN_EMAIL:
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    image_url = save_product_image(image)
+    product = create_product_row(
+        db,
+        name=name,
+        brand_name=brand,
+        university_name=university,
+        category_slug=category_slug,
+        price=price,
+        image_url=image_url,
+        color=color,
+        sizes=[s.strip() for s in sizes.split(",") if s.strip()],
+        gender=gender,
+        department=department,
+        stock=stock,
+        sku=sku,
+        is_best_seller=is_best_seller,
+        compare_at_price=compare_at_price,
+    )
+    return serialize(product)
+
+
+@app.put("/api/admin/products/{product_id}/form")
+def admin_update_product_form(
+    product_id: int,
+    admin_email: str = Form(...),
+    name: str = Form(...),
+    brand: str = Form(...),
+    university: str = Form(...),
+    category_slug: str = Form(...),
+    price: float = Form(...),
+    color: Optional[str] = Form(None),
+    sizes: str = Form(""),
+    gender: Optional[str] = Form(None),
+    department: Optional[str] = Form(None),
+    stock: int = Form(0),
+    sku: Optional[str] = Form(None),
+    is_best_seller: bool = Form(False),
+    compare_at_price: Optional[float] = Form(None),
+    image: Optional[UploadFile] = File(None),
+    db: Session = Depends(get_db),
+):
+    if admin_email.strip().lower() != ADMIN_EMAIL:
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    image_url = save_product_image(image) if image and image.filename else None
+    product = update_product_row(
+        db,
+        product,
+        name=name,
+        brand_name=brand,
+        university_name=university,
+        category_slug=category_slug,
+        price=price,
+        image_url=image_url,
+        color=color,
+        sizes=[s.strip() for s in sizes.split(",") if s.strip()],
+        gender=gender,
+        department=department,
+        stock=stock,
+        sku=sku,
+        is_best_seller=is_best_seller,
+        compare_at_price=compare_at_price,
+    )
+    return serialize(product)
+
+
+@app.delete("/api/admin/products/{product_id}")
+def admin_delete_product(
+    product_id: int,
+    admin_email: str = Query(...),
+    db: Session = Depends(get_db),
+):
+    if admin_email.strip().lower() != ADMIN_EMAIL:
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    db.delete(product)
+    db.commit()
+    return {"deleted": True, "id": product_id}
+
+
+@app.post("/api/admin/upload")
+def admin_upload_image(
+    admin_email: str = Query(...),
+    image: UploadFile = File(...),
+):
+    if admin_email.strip().lower() != ADMIN_EMAIL:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return {"image_url": save_product_image(image)}
+
+
 @app.get("/api/filters")
-def filters(category: Optional[str] = None, db: Session = Depends(get_db)):
+def filters(
+    category: Optional[str] = None,
+    best_seller: Optional[bool] = None,
+    db: Session = Depends(get_db),
+):
     """Available filter facets (with counts) for a category."""
 
     def base():
         q = db.query(Product).join(Category, Product.category_id == Category.id)
         if category:
             q = q.filter(Category.slug == category)
+        if best_seller:
+            q = q.filter(Product.is_best_seller.is_(True))
         return q
 
     def facet(column):

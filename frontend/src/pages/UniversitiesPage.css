@@ -1,0 +1,163 @@
+.up {
+  width: 100%;
+  background: #ffffff;
+  color: #07182f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.up-inner {
+  width: min(100%, 560px);
+  margin: 0 auto;
+  padding: 34px 24px 92px;
+  box-sizing: border-box;
+}
+
+.up-title {
+  margin: 0 0 28px;
+  color: #061933;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.up-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.up-conference {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.up-conference-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 18px;
+}
+
+.up-conference-heading h2 {
+  margin: 0;
+  color: #061933;
+  font-size: 17px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.up-conference-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 24px;
+  height: 16px;
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+.up-conf-acc {
+  color: #316ecb;
+}
+
+.up-conf-big-ten {
+  color: #0e6da8;
+  font-size: 13px;
+  font-style: normal;
+}
+
+.up-conf-big-12 {
+  color: #d64b68;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.up-conf-big-east {
+  color: #d11f30;
+  width: 24px;
+  font-size: 5px;
+}
+
+.up-conf-sec {
+  color: #485d79;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #485d79;
+  border-radius: 50%;
+  justify-content: center;
+  font-size: 10px;
+  font-style: normal;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.up-schools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px 28px;
+}
+
+.up-school {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 38px;
+  color: #07182f;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.up-school-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  box-shadow: 0 1px 2px rgba(13, 35, 67, 0.08);
+}
+
+.up-school-logo span {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.up-school-name {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+  color: #07182f;
+}
+
+.up-school:hover .up-school-name {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .up-inner {
+    width: 100%;
+    padding: 28px 18px 72px;
+  }
+
+  .up-title {
+    font-size: 26px;
+  }
+
+  .up-list {
+    gap: 34px;
+  }
+
+  .up-schools {
+    gap: 16px 22px;
+  }
+}

@@ -21,14 +21,14 @@ const TrendingProducts = () => {
       <div className="tw-inner">
         <div className="tw-head">
           <h2 className="tw-title">Trending This Week</h2>
-          <Link className="tw-all" to="/collections/new-arrivals">
+          <Link className="tw-all" to="/collections/all-products">
             Shop All Products
           </Link>
         </div>
 
         <div className="tw-grid">
           {products.map((p) => (
-            <Link className="tw-card" to={`/products/${p.slug}`} key={p.id}>
+            <Link className="tw-card" to="/collections/all-products" key={p.id}>
               <img
                 className="tw-thumb"
                 src={p.image_url}

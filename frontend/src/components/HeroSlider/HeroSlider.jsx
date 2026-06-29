@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import "./HeroSlider.css";
 
 const slides = [
@@ -52,6 +53,8 @@ const slides = [
   },
 ];
 
+const SHOP_PATH = "/collections/all-products";
+
 // Wrap any emphasized phrases in <strong> for the bold-brand look in the copy.
 const emphasize = (text, words = []) => {
   if (!words.length) return text;
@@ -90,23 +93,24 @@ const HeroSlider = () => {
             style={{ transform: `translateX(-${current * 100}%)` }}
           >
             {slides.map((s) => (
-              <article
+              <Link
                 className="hero-slide"
                 key={s.id}
+                to={SHOP_PATH}
                 style={{ "--panel": s.theme }}
               >
                 <div className="hero-copy">
                   {s.badge && <span className="hero-badge">{s.badge}</span>}
                   <h2 className="hero-title">{s.title}</h2>
                   <p className="hero-text">{emphasize(s.text, s.emphasis)}</p>
-                  <a className="hero-cta" href={s.href}>
+                  <span className="hero-cta">
                     {s.cta}
-                  </a>
+                  </span>
                 </div>
                 <div className="hero-media">
                   <img src={s.image} alt="" loading="lazy" />
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

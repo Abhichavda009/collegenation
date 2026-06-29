@@ -1,0 +1,176 @@
+.upg {
+  width: 100%;
+  max-width: 1636px;
+  margin: 0 auto;
+  padding: 50px 40px 88px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #07182f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.upg-state {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 16px;
+}
+
+.upg-hero {
+  min-height: 196px;
+  border-radius: 8px;
+  background: #ded8d8;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 34px 62px;
+  box-sizing: border-box;
+}
+
+.upg-hero h1 {
+  margin: 0;
+  color: #0a0a0a;
+  font-size: 60px;
+  line-height: 0.95;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.upg-hero p {
+  margin: 8px 0 0;
+  color: #ef3340;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 64px;
+  line-height: 0.9;
+}
+
+.upg-shortcuts {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 66px;
+  margin: 20px 0 54px;
+  flex-wrap: wrap;
+}
+
+.upg-shortcut {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #111111;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.upg-shortcut-logo,
+.upg-shortcut-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.upg-shortcut-logo span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.upg-shortcut-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upg-tiles {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 8px;
+}
+
+.upg-promo,
+.upg-product-tile {
+  min-height: 360px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ded8d8;
+  text-decoration: none;
+}
+
+.upg-promo-copy {
+  display: flex;
+  align-items: flex-end;
+  padding: 42px;
+  box-sizing: border-box;
+}
+
+.upg-promo h2 {
+  margin: 0;
+  color: #0a0a0a;
+  font-size: 78px;
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.upg-promo h2 span {
+  display: block;
+}
+
+.upg-promo h2 span:nth-child(2) {
+  color: #ef3340;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 82px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.upg-product-tile img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .upg-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .upg-hero h1,
+  .upg-promo h2 {
+    font-size: 44px;
+  }
+
+  .upg-hero p,
+  .upg-promo h2 span:nth-child(2) {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 640px) {
+  .upg {
+    padding: 28px 16px 64px;
+  }
+
+  .upg-hero {
+    padding: 28px 24px;
+  }
+
+  .upg-shortcuts {
+    gap: 24px;
+  }
+}

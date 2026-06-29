@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { apiFetch } from "../../lib/api";
 import "./UniversityCollections.css";
 
@@ -19,9 +20,9 @@ const UniversityCollections = () => {
 
         <div className="uc-grid">
           {universities.map((u) => (
-            <a
+            <Link
               className="uc-card"
-              href={`#${u.slug || u.name.toLowerCase()}`}
+              to={`/universities/${u.slug || u.name.toLowerCase()}`}
               key={u.slug || u.name}
               aria-label={`${u.name} collection`}
             >
@@ -45,7 +46,7 @@ const UniversityCollections = () => {
                   <i className="fa-solid fa-chevron-right"></i>
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

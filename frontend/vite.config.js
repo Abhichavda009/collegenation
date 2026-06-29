@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       // Forward API calls to the FastAPI backend during development
       '/api': 'http://127.0.0.1:8000',
+      '/uploads': 'http://127.0.0.1:8000',
     },
   },
 })

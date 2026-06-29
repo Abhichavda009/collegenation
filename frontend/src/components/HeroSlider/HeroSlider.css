@@ -33,6 +33,8 @@
   display: flex;
   min-height: 480px;
   background: var(--panel, #0d2343);
+  color: inherit;
+  text-decoration: none;
 }
 
 .hero-copy {

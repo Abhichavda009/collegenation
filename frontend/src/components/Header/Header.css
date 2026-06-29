@@ -81,6 +81,7 @@
 
 /* Clean Pill Search Bar Interface */
 .cn-search-combo {
+  position: relative;
   display: flex;
   align-items: center;
   width: 440px;
@@ -99,7 +100,8 @@
   padding-left: 8px;
 }
 
-.cn-select-box select {
+.cn-select-box select,
+.cn-university-trigger {
   border: none;
   background: #ffffff !important;
   color: #4a5568;
@@ -112,9 +114,14 @@
   font-weight: 500;
 }
 
+.cn-university-trigger {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 150px;
+}
+
 .cn-select-arrow {
-  position: absolute;
-  right: 14px;
   font-size: 10px;
   color: #4a5568;
   pointer-events: none;
@@ -177,8 +184,10 @@
 }
 
 .cn-bag-wrapper {
+  position: relative;
   width: 40px;
   height: 40px;
+  border: none;
   border-radius: 50%;
   background-color: #f0f2f5;
   display: flex;
@@ -187,9 +196,420 @@
   cursor: pointer;
 }
 
+.cn-university-menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: 900px;
+  min-height: 144px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(13, 35, 67, 0.16);
+  z-index: 1200;
+  overflow: hidden;
+}
+
+.cn-conference-tabs {
+  height: 64px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #e6e8ec;
+}
+
+.cn-conference-tabs button {
+  position: relative;
+  min-width: 118px;
+  border: none;
+  background: transparent;
+  color: #07182f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cn-conference-tabs button.is-active::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: #d33a2c;
+}
+
+.cn-conf-mark {
+  color: #316ecb;
+  font-size: 8px;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.cn-conf-big-ten {
+  color: #0e6da8;
+  font-size: 13px;
+  letter-spacing: -1px;
+  font-style: normal;
+}
+
+.cn-conf-big-12,
+.cn-conf-big-east {
+  color: #d64b68;
+  font-size: 7px;
+}
+
+.cn-conf-sec {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #485d79;
+  border-radius: 50%;
+  color: #485d79;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-style: normal;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.cn-conference-schools {
+  min-height: 80px;
+  padding: 22px 38px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  box-sizing: border-box;
+}
+
+.cn-conference-school {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #07182f;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cn-conference-school-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cn-conference-school-logo span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cn-bag-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #c93628;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
 .cn-bag-icon {
   color: #4a5568;
   font-size: 15px;
+}
+
+.cn-cart-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cn-cart-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(0, 0, 0, 0.68);
+  cursor: pointer;
+}
+
+.cn-cart-drawer {
+  position: relative;
+  z-index: 1;
+  width: min(100vw, 448px);
+  min-height: 100vh;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.18);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.cn-cart-head {
+  height: 68px;
+  padding: 0 30px;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.cn-cart-head h2 {
+  margin: 0;
+  color: #000000;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.cn-cart-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cn-cart-head-actions button {
+  border: none;
+  background: transparent;
+  color: #0d2343;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cn-cart-head-actions button:first-child {
+  font-size: 17px;
+  color: #64748b;
+}
+
+.cn-cart-free {
+  padding: 22px 30px 14px;
+  border-bottom: 1px solid #ededed;
+}
+
+.cn-cart-free span {
+  color: #008752;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cn-cart-progress {
+  height: 3px;
+  margin-top: 11px;
+  background: #dfe5e8;
+  overflow: hidden;
+}
+
+.cn-cart-progress span {
+  display: block;
+  height: 100%;
+  background: #008752;
+}
+
+.cn-cart-items {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.cn-cart-item {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  gap: 14px;
+  padding: 38px 30px 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+.cn-cart-item img {
+  width: 124px;
+  height: 96px;
+  object-fit: cover;
+  display: block;
+}
+
+.cn-cart-item-info {
+  min-width: 0;
+}
+
+.cn-cart-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cn-cart-item-name {
+  color: #000000;
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cn-cart-item-top button {
+  border: none;
+  background: transparent;
+  color: #9aa3af;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.cn-cart-item-info p {
+  margin: 4px 0 10px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.cn-cart-item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cn-cart-item-bottom strong {
+  color: #111111;
+  font-size: 15px;
+}
+
+.cn-cart-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e1e5ea;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cn-cart-qty button {
+  width: 32px;
+  height: 25px;
+  border: none;
+  background: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cn-cart-qty span {
+  min-width: 30px;
+  text-align: center;
+  color: #000000;
+  font-size: 14px;
+}
+
+.cn-cart-footer {
+  padding: 18px 30px 18px;
+  border-top: 1px solid #e6e6e6;
+}
+
+.cn-cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.cn-cart-total strong {
+  font-size: 14px;
+}
+
+.cn-cart-footer p {
+  margin: 14px 0 24px;
+  color: #000000;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cn-cart-footer > a {
+  display: block;
+  margin-bottom: 16px;
+  color: #000000;
+  text-align: center;
+  font-size: 11px;
+}
+
+.cn-cart-footer-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+}
+
+.cn-cart-footer-actions a,
+.cn-cart-footer-actions button,
+.cn-cart-empty a {
+  height: 41px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cn-cart-footer-actions a {
+  border: 1px solid #000000;
+  color: #000000;
+  background: #ffffff;
+}
+
+.cn-cart-footer-actions button,
+.cn-cart-footer-actions .cn-cart-checkout-link,
+.cn-cart-empty a {
+  border: 1px solid #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+.cn-cart-empty {
+  flex: 1;
+  padding: 92px 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.cn-cart-empty h3 {
+  margin: 0 0 8px;
+  color: #000000;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.cn-cart-empty p {
+  margin: 0 0 24px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.cn-cart-empty a {
+  width: 160px;
 }
 
 /* --- Row 3: Category Links Section --- */
@@ -260,6 +680,7 @@
   align-items: center;
   gap: 7px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .cn-node-circle {

@@ -151,6 +151,38 @@
   color: #fff;
 }
 
+/* --- Active filter chips --- */
+.cp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.cp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #111418;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.cp-chip:hover {
+  background: #000000;
+}
+
+.cp-chip-x {
+  font-size: 16px;
+  line-height: 1;
+}
+
 /* --- Layout --- */
 .cp-body {
   display: grid;
@@ -299,17 +331,28 @@
   transform: scale(1.04);
 }
 
-.cp-soldout {
+.cp-badge {
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 2;
-  background: #111418;
   color: #fff;
   font-size: 11px;
   font-weight: 700;
   padding: 4px 9px;
   border-radius: 4px;
+}
+
+.cp-badge-out {
+  background: #6b7280;
+}
+
+.cp-badge-sale {
+  background: #e8453c;
+}
+
+.cp-badge-best {
+  background: #f56600;
 }
 
 .cp-card-info {
@@ -339,6 +382,18 @@
   font-size: 15px;
   font-weight: 700;
   color: #111418;
+}
+
+.cp-card-price.is-sale {
+  color: #e8453c;
+}
+
+.cp-card-was {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9aa3af;
+  text-decoration: line-through;
 }
 
 .cp-state {

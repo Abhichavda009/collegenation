@@ -37,6 +37,21 @@ const SIZE_LABELS = {
 const money = (n) =>
   `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+const CART_KEY = "cn_cart";
+
+const readCart = () => {
+  try {
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  } catch {
+    return [];
+  }
+};
+
+const saveCart = (items) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(items));
+  window.dispatchEvent(new Event("cn_cart_updated"));
+};
+
 const Shell = ({ children }) => (
   <>
     <Header />
@@ -98,6 +113,35 @@ const ProductPage = () => {
 
   const dec = () => setQty((q) => Math.max(1, q - 1));
   const inc = () => setQty((q) => Math.min(max, q + 1));
+  const addToCart = () => {
+    const selectedSize = size || "OSFA";
+    const itemKey = `${product.slug}-${selectedSize}`;
+    const current = readCart();
+    const existing = current.find((item) => item.key === itemKey);
+    const next = existing
+      ? current.map((item) =>
+          item.key === itemKey
+            ? { ...item, quantity: Math.min(item.quantity + qty, max) }
+            : item
+        )
+      : [
+          ...current,
+          {
+            key: itemKey,
+            slug: product.slug,
+            name: product.name,
+            image_url: product.image_url,
+            price: product.price,
+            color: product.color,
+            size: selectedSize,
+            sizeLabel: SIZE_LABELS[selectedSize] || selectedSize,
+            quantity: qty,
+          },
+        ];
+
+    saveCart(next);
+    setAdded(true);
+  };
 
   return (
     <Shell>
@@ -203,7 +247,7 @@ const ProductPage = () => {
               type="button"
               className="pd-add"
               disabled={stock === 0}
-              onClick={() => setAdded(true)}
+              onClick={addToCart}
             >
               Add To Cart
             </button>

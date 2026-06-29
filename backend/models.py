@@ -12,7 +12,10 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from database import Base
+try:
+    from .database import Base
+except ImportError:
+    from database import Base
 
 
 class Brand(Base):
@@ -59,6 +62,8 @@ class Product(Base):
     department = Column(String(60))
     stock = Column(Integer, default=0, nullable=False)
     in_stock = Column(Boolean, default=True, nullable=False)
+    is_best_seller = Column(Boolean, default=False, nullable=False)
+    compare_at_price = Column(Numeric(10, 2))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     brand = relationship("Brand")
