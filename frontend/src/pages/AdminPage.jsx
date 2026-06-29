@@ -52,7 +52,7 @@ const AdminPage = () => {
         setForm((prev) => ({
           ...prev,
           university: prev.university || u?.[0]?.name || "",
-          category_slug: prev.category_slug || c?.[0]?.slug || "",
+          category_slug: prev.category_slug || c?.[0]?.name || "",
           brand: prev.brand || b?.[0]?.name || "",
         }));
       })
@@ -217,7 +217,7 @@ const AdminPage = () => {
       name: product.name || "",
       brand: product.brand || "",
       university: product.university || "",
-      category_slug: product.category_slug || "",
+      category_slug: product.category || product.category_slug || "",
       price: product.price ?? "",
       color: product.color || "",
       sizes: (product.sizes || []).join(", "),
@@ -324,28 +324,36 @@ const AdminPage = () => {
 
             <label>
               University
-              <select
+              <input
                 required
+                list="admin-universities"
                 value={form.university}
                 onChange={(e) => update("university", e.target.value)}
-              >
+                placeholder="Type or select university"
+              />
+              <datalist id="admin-universities">
                 {universities.map((u) => (
-                  <option value={u.name} key={u.name}>{u.name}</option>
+                  <option value={u.name} key={u.name} />
                 ))}
-              </select>
+              </datalist>
+              <span className="admin-field-help">Select existing or type a new university.</span>
             </label>
 
             <label>
               Category
-              <select
+              <input
                 required
+                list="admin-categories"
                 value={form.category_slug}
                 onChange={(e) => update("category_slug", e.target.value)}
-              >
+                placeholder="Type or select category"
+              />
+              <datalist id="admin-categories">
                 {categories.map((c) => (
-                  <option value={c.slug} key={c.slug}>{c.name}</option>
+                  <option value={c.name} key={c.slug} />
                 ))}
-              </select>
+              </datalist>
+              <span className="admin-field-help">Select existing or type a new category.</span>
             </label>
 
             <label>

@@ -76,6 +76,59 @@ def unique_product_slug(db: Session, name: str) -> str:
     return slug
 
 
+def university_defaults(name: str) -> dict:
+    initials = "".join(part[0] for part in name.split() if part).upper()[:3] or "U"
+    return {
+        "slug": slugify(name),
+        "logo": initials,
+        "primary_color": "#0d2343",
+        "logo_color": "#ffffff",
+    }
+
+
+def get_or_create_university(db: Session, name: str) -> University:
+    clean_name = name.strip()
+    if not clean_name:
+        raise HTTPException(status_code=400, detail="University is required")
+
+    university = (
+        db.query(University)
+        .filter(func.lower(University.name) == clean_name.lower())
+        .first()
+    )
+    if university:
+        return university
+
+    university = University(name=clean_name, **university_defaults(clean_name))
+    db.add(university)
+    db.flush()
+    return university
+
+
+def get_or_create_category(db: Session, value: str) -> Category:
+    clean_value = value.strip()
+    if not clean_value:
+        raise HTTPException(status_code=400, detail="Category is required")
+
+    clean_slug = slugify(clean_value)
+    category = (
+        db.query(Category)
+        .filter(
+            (Category.slug == clean_value)
+            | (Category.slug == clean_slug)
+            | (func.lower(Category.name) == clean_value.lower())
+        )
+        .first()
+    )
+    if category:
+        return category
+
+    category = Category(slug=clean_slug, name=clean_value)
+    db.add(category)
+    db.flush()
+    return category
+
+
 def save_product_image(image: UploadFile) -> str:
     if not image.content_type or not image.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="Upload an image file")
@@ -109,13 +162,8 @@ def create_product_row(
     is_best_seller: bool,
     compare_at_price: Optional[float],
 ) -> Product:
-    category = db.query(Category).filter(Category.slug == category_slug).first()
-    if not category:
-        raise HTTPException(status_code=400, detail="Category not found")
-
-    university = db.query(University).filter(University.name == university_name).first()
-    if not university:
-        raise HTTPException(status_code=400, detail="University not found")
+    category = get_or_create_category(db, category_slug)
+    university = get_or_create_university(db, university_name)
 
     brand_clean = brand_name.strip()
     brand = db.query(Brand).filter(Brand.name == brand_clean).first()
@@ -167,13 +215,8 @@ def update_product_row(
     is_best_seller: bool,
     compare_at_price: Optional[float],
 ) -> Product:
-    category = db.query(Category).filter(Category.slug == category_slug).first()
-    if not category:
-        raise HTTPException(status_code=400, detail="Category not found")
-
-    university = db.query(University).filter(University.name == university_name).first()
-    if not university:
-        raise HTTPException(status_code=400, detail="University not found")
+    category = get_or_create_category(db, category_slug)
+    university = get_or_create_university(db, university_name)
 
     brand_clean = brand_name.strip()
     brand = db.query(Brand).filter(Brand.name == brand_clean).first()

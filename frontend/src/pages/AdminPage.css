@@ -188,6 +188,12 @@
   font-weight: 600;
 }
 
+.admin-field-help {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .admin-preview {
   align-self: start;
   padding: 18px;
