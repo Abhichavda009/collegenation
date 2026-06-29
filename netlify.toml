@@ -3,6 +3,9 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  VITE_API_URL = "https://collegenation-api.onrender.com"
+
 [[redirects]]
   from = "/api/*"
   to = "https://collegenation-api.onrender.com/api/:splat"
