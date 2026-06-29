@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { apiFetch } from "../lib/api";
+import { apiFetch, apiUrl } from "../lib/api";
 import "./AdminPage.css";
 
 const ADMIN_EMAIL = "admin123@gmail.com";
@@ -204,7 +204,8 @@ const AdminPage = () => {
       const endpoint = editingProduct
         ? `/api/admin/products/${editingProduct.id}/form`
         : "/api/admin/products/form";
-      const res = await apiFetch(endpoint, {
+      const requestUrl = apiUrl(endpoint);
+      const res = await fetch(requestUrl, {
         method: editingProduct ? "PUT" : "POST",
         body: buildPayload(),
       });
@@ -214,7 +215,9 @@ const AdminPage = () => {
         const detail = Array.isArray(data.detail)
           ? data.detail.map((d) => d.msg).join(", ")
           : data.detail;
-        throw new Error(detail || `Product was not saved. (${res.status})`);
+        throw new Error(
+          detail || `Product was not saved. (${res.status}) URL: ${requestUrl}`,
+        );
       }
       setCreated(data);
       setStatus(editingProduct ? "Product updated successfully." : "Product added successfully.");

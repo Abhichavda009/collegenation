@@ -7,6 +7,10 @@ const API_BASE =
   configuredApiBase ||
   (import.meta.env.PROD ? "https://collegenation-api.onrender.com" : "");
 
+export function apiUrl(path) {
+  return `${API_BASE}${path}`;
+}
+
 export function apiFetch(path, options) {
-  return fetch(`${API_BASE}${path}`, options);
+  return fetch(apiUrl(path), options);
 }
