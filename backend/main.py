@@ -10,12 +10,13 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from sqlalchemy import func
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 try:
-    from .database import get_db
+    from .database import engine, get_db
     from .models import Brand, Category, Product, University
 except ImportError:
-    from database import get_db
+    from database import engine, get_db
     from models import Brand, Category, Product, University
 
 app = FastAPI(title="College Nation API")
@@ -30,6 +31,27 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+def ensure_catalog_schema():
+    """Keep older deployed catalog databases compatible with the current model."""
+    statements = [
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS sku VARCHAR(40)",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS color VARCHAR(40)",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS sizes VARCHAR[]",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS gender VARCHAR(40)",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS department VARCHAR(60)",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS stock INTEGER NOT NULL DEFAULT 0",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS in_stock BOOLEAN NOT NULL DEFAULT TRUE",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS is_best_seller BOOLEAN NOT NULL DEFAULT FALSE",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS compare_at_price NUMERIC(10, 2)",
+        "ALTER TABLE products ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT now()",
+    ]
+    with engine.begin() as conn:
+        for statement in statements:
+            conn.execute(text(statement))
 
 SORT_OPTIONS = {
     "featured": (Product.id.asc(),),
