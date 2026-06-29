@@ -4,6 +4,23 @@ import { apiFetch } from "../lib/api";
 import "./AdminPage.css";
 
 const ADMIN_EMAIL = "admin123@gmail.com";
+const FALLBACK_CATEGORIES = [
+  { slug: "mens", name: "Men's" },
+  { slug: "womens", name: "Women's" },
+  { slug: "kids", name: "Kids" },
+  { slug: "hats", name: "Hats" },
+  { slug: "gifts", name: "Gifts" },
+];
+const UNIVERSITY_GROUPS = [
+  { name: "ACC", schools: ["Clemson", "Syracuse", "Virginia"] },
+  { name: "Big Ten", schools: ["Maryland", "Michigan", "UCLA", "Washington"] },
+  { name: "Big 12", schools: ["Arizona", "Kansas", "TCU"] },
+  { name: "Big East", schools: ["Villanova"] },
+  { name: "SEC", schools: ["Alabama", "LSU", "Missouri", "Tennessee"] },
+];
+const UNIVERSITY_DISPLAY_NAMES = {
+  Virginia: "UVA",
+};
 const DEFAULT_FORM = {
   name: "",
   brand: "",
@@ -47,12 +64,13 @@ const AdminPage = () => {
     ])
       .then(([u, c, b]) => {
         setUniversities(u || []);
-        setCategories(c || []);
+        setCategories(c?.length ? c : FALLBACK_CATEGORIES);
         setBrands(b || []);
+        const categoryOptions = c?.length ? c : FALLBACK_CATEGORIES;
         setForm((prev) => ({
           ...prev,
-          university: prev.university || u?.[0]?.name || "",
-          category_slug: prev.category_slug || c?.[0]?.name || "",
+          university: prev.university || UNIVERSITY_GROUPS[0].schools[0],
+          category_slug: prev.category_slug || categoryOptions[0]?.slug || "",
           brand: prev.brand || b?.[0]?.name || "",
         }));
       })
@@ -88,6 +106,16 @@ const AdminPage = () => {
   const totalPages = Math.max(1, Math.ceil(productTotal / 10));
 
   const brandOptions = useMemo(() => brands.map((b) => b.name), [brands]);
+  const fixedUniversityNames = useMemo(
+    () => UNIVERSITY_GROUPS.flatMap((group) => group.schools),
+    [],
+  );
+  const extraUniversityNames = useMemo(() => {
+    return universities
+      .map((u) => u.name)
+      .filter((name) => name && !fixedUniversityNames.includes(name));
+  }, [fixedUniversityNames, universities]);
+  const categoryOptions = categories.length ? categories : FALLBACK_CATEGORIES;
 
   if (!isAdmin) {
     return <Navigate to="/signin" replace />;
@@ -217,7 +245,7 @@ const AdminPage = () => {
       name: product.name || "",
       brand: product.brand || "",
       university: product.university || "",
-      category_slug: product.category || product.category_slug || "",
+      category_slug: product.category_slug || product.category || "",
       price: product.price ?? "",
       color: product.color || "",
       sizes: (product.sizes || []).join(", "),
@@ -324,36 +352,49 @@ const AdminPage = () => {
 
             <label>
               University
-              <input
+              <select
                 required
-                list="admin-universities"
                 value={form.university}
                 onChange={(e) => update("university", e.target.value)}
-                placeholder="Type or select university"
-              />
-              <datalist id="admin-universities">
-                {universities.map((u) => (
-                  <option value={u.name} key={u.name} />
+              >
+                <option value="" disabled>Select university</option>
+                {UNIVERSITY_GROUPS.map((group) => (
+                  <optgroup label={group.name} key={group.name}>
+                    {group.schools.map((school) => (
+                      <option value={school} key={school}>
+                        {UNIVERSITY_DISPLAY_NAMES[school] || school}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
-              </datalist>
-              <span className="admin-field-help">Select existing or type a new university.</span>
+                {extraUniversityNames.length > 0 && (
+                  <optgroup label="Other">
+                    {extraUniversityNames.map((school) => (
+                      <option value={school} key={school}>
+                        {UNIVERSITY_DISPLAY_NAMES[school] || school}
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+              </select>
+              <span className="admin-field-help">Choose from the fixed university list.</span>
             </label>
 
             <label>
               Category
-              <input
+              <select
                 required
-                list="admin-categories"
                 value={form.category_slug}
                 onChange={(e) => update("category_slug", e.target.value)}
-                placeholder="Type or select category"
-              />
-              <datalist id="admin-categories">
-                {categories.map((c) => (
-                  <option value={c.name} key={c.slug} />
+              >
+                <option value="" disabled>Select category</option>
+                {categoryOptions.map((c) => (
+                  <option value={c.slug} key={c.slug}>
+                    {c.name}
+                  </option>
                 ))}
-              </datalist>
-              <span className="admin-field-help">Select existing or type a new category.</span>
+              </select>
+              <span className="admin-field-help">Choose from the fixed category list.</span>
             </label>
 
             <label>
