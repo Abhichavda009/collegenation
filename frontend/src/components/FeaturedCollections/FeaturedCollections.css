@@ -1,0 +1,318 @@
+.fc {
+  width: 100%;
+  background: #ffffff;
+  padding: 48px 0 56px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.fc-inner {
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.fc-heading {
+  margin: 0 0 28px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #0d2343;
+}
+
+/* --- Scrolling track --- */
+.fc-track {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.fc-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Promo card --- */
+.fc-promo {
+  flex: 0 0 268px;
+  width: 268px;
+  scroll-snap-align: start;
+  background: #111418;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 40px 20px;
+  transition: transform 0.2s ease;
+}
+
+.fc-promo:hover {
+  transform: translateY(-3px);
+}
+
+.fc-promo-script {
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 46px;
+  line-height: 1;
+  color: #e8453c;
+  transform: rotate(-4deg);
+  margin-bottom: 4px;
+}
+
+.fc-promo-title {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* --- Product card --- */
+.fc-card {
+  flex: 0 0 268px;
+  width: 268px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.fc-card-media {
+  position: relative;
+  display: block;
+  height: 348px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f4f5f7;
+}
+
+.fc-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.fc-card-media:hover img {
+  transform: scale(1.04);
+}
+
+.fc-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background: #e8453c;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.fc-quickview {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #4a5568;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.fc-quickview:hover {
+  background: #ffffff;
+  color: #0d2343;
+}
+
+.fc-choose {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  text-align: center;
+  background: rgba(13, 35, 67, 0.92);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 11px 0;
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.fc-card-media:hover .fc-quickview,
+.fc-card-media:hover .fc-choose {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Card body --- */
+.fc-card-body {
+  padding: 14px 2px 0;
+}
+
+.fc-brand {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #9aa3af;
+  margin-bottom: 6px;
+}
+
+.fc-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #2d3748;
+  text-decoration: none;
+  min-height: 39px;
+}
+
+.fc-title:hover {
+  color: #000000;
+}
+
+.fc-price {
+  margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.fc-price-now {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d2343;
+}
+
+.fc-price-now.is-sale {
+  color: #e8453c;
+}
+
+.fc-price-was {
+  font-size: 13px;
+  color: #9aa3af;
+  text-decoration: line-through;
+}
+
+/* --- Swatches --- */
+.fc-swatches {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fc-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.fc-swatch-more {
+  font-size: 12px;
+  color: #718096;
+  margin-left: 2px;
+}
+
+/* --- Footer: progress bar + arrows --- */
+.fc-footer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.fc-progress {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: #e5e7eb;
+  border-radius: 2px;
+}
+
+.fc-progress-bar {
+  position: absolute;
+  top: -1px;
+  height: 4px;
+  background: #0d2343;
+  border-radius: 4px;
+  transition: left 0.15s ease, width 0.15s ease;
+}
+
+.fc-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fc-arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #d8dce2;
+  background: #ffffff;
+  color: #0d2343;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.fc-arrow:hover {
+  background: #0d2343;
+  border-color: #0d2343;
+  color: #ffffff;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .fc-inner {
+    padding: 0 16px;
+  }
+
+  .fc-heading {
+    font-size: 24px;
+  }
+
+  .fc-promo,
+  .fc-card {
+    flex: 0 0 220px;
+    width: 220px;
+  }
+
+  .fc-card-media {
+    height: 290px;
+  }
+}

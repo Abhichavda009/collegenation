@@ -1,0 +1,321 @@
+/* --- Root reset to eliminate browser wrapping styles --- */
+.cn-global-header {
+  width: 100% !important;
+  background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.cn-global-header * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base structural layout container matching the exact layout of image_716c60.png */
+.cn-global-header .cn-container {
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Row 1: Top Black Banner --- */
+.cn-top-banner {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 11px 0;
+}
+
+.cn-banner-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin: 0 auto; /* Keeps text perfectly centered */
+}
+
+.cn-insta-icon {
+  font-size: 15px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/* --- Row 2: Mid Navigation (Logo, Search & Actions) --- */
+.cn-mid-section {
+  background-color: #ffffff;
+  padding: 22px 0;
+}
+
+/* College Nation shield crest logo */
+.cn-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.cn-logo-svg {
+  height: 74px;
+  width: auto;
+  display: block;
+}
+
+.cn-logo-arc-text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  fill: #0d2343;
+}
+
+.cn-logo-monogram {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 700;
+  fill: #ffffff;
+}
+
+/* Clean Pill Search Bar Interface */
+.cn-search-combo {
+  display: flex;
+  align-items: center;
+  width: 440px;
+  height: 42px;
+  border: 1px solid #dcdcdc;
+  border-radius: 25px;
+  background-color: #ffffff !important; /* Overrides global dark-theme layouts */
+}
+
+.cn-select-box {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #e2e2e2;
+  padding-left: 8px;
+}
+
+.cn-select-box select {
+  border: none;
+  background: #ffffff !important;
+  color: #4a5568;
+  font-size: 13.5px;
+  padding: 0 28px 0 12px;
+  height: 100%;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  font-weight: 500;
+}
+
+.cn-select-arrow {
+  position: absolute;
+  right: 14px;
+  font-size: 10px;
+  color: #4a5568;
+  pointer-events: none;
+}
+
+.cn-input-box {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background-color: #ffffff !important;
+  border-radius: 0 25px 25px 0;
+}
+
+.cn-input-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #ffffff !important; /* Protects input window from default dark themes */
+  color: #2d3748 !important;
+  padding: 0 45px 0 16px;
+  font-size: 14px;
+  outline: none;
+  border-radius: 0 25px 25px 0;
+}
+
+.cn-input-box input::placeholder {
+  color: #a0aec0;
+}
+
+.cn-search-glass {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Profile and Shopping bag */
+.cn-user-bar {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.cn-account-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cn-user-icon {
+  font-size: 16px;
+}
+
+.cn-bag-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cn-bag-icon {
+  color: #4a5568;
+  font-size: 15px;
+}
+
+/* --- Row 3: Category Links Section --- */
+.cn-navbar-links {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 0;
+  background-color: #ffffff;
+}
+
+.cn-nav-ul {
+  display: flex;
+  list-style: none;
+  gap: 26px;
+}
+
+.cn-nav-ul a {
+  text-decoration: none;
+  color: #4a5568;
+  font-size: 14.5px;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.cn-nav-ul a:hover {
+  color: #000000;
+}
+
+/* Highlight the active (current) nav item */
+.cn-nav-ul a.active {
+  color: #0d2343;
+  font-weight: 700;
+  border-bottom-color: #cf242a;
+}
+
+.cn-nav-store {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cn-pin-icon {
+  color: #4a5568;
+  font-size: 14px;
+}
+
+/* --- Row 4: University Circular Icon Strip --- */
+.cn-uni-tray {
+  background-color: #f4f6f8;
+  padding: 16px 0;
+}
+
+.cn-uni-scroll {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.cn-uni-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.cn-node-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.cn-node-circle span {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.cn-node-name {
+  font-size: 11px;
+  color: #718096;
+  font-weight: 400;
+}
+
+.cn-view-all-box {
+  border-left: 1px solid #dcdcdc;
+  padding-left: 20px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.cn-view-all-anchor {
+  font-size: 13px;
+  color: #4a5568;
+  text-decoration: underline;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cn-global-header {
+  /* Header element no longer generates its own box, so the sticky bar
+     inside it is measured against the whole page (#root) instead of the
+     header's height. This lets only the sticky bar stay pinned while the
+     top banner and university tray scroll away. */
+  display: contents;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Only the logo/search row + nav links stay pinned to the top */
+.cn-sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(13, 35, 67, 0.06);
+}

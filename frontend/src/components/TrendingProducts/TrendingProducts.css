@@ -1,0 +1,150 @@
+.tw {
+  width: 100%;
+  background: #ffffff;
+  padding: 8px 0 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.tw-inner {
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.tw-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.tw-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #0d2343;
+}
+
+.tw-all {
+  font-size: 14px;
+  font-weight: 600;
+  color: #15171a;
+  text-decoration: none;
+  border-bottom: 1.5px solid #15171a;
+  padding-bottom: 2px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tw-all:hover {
+  color: #e8453c;
+  border-color: #e8453c;
+}
+
+.tw-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tw-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f5f5f6;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.tw-card:hover {
+  background: #ececed;
+}
+
+.tw-thumb {
+  width: 56px;
+  height: 64px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.tw-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tw-brand {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #9aa3af;
+  margin-bottom: 3px;
+}
+
+.tw-name {
+  font-size: 13.5px;
+  line-height: 1.3;
+  color: #2d3748;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tw-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0d2343;
+}
+
+.tw-arrow {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #d8dce2;
+  background: #ffffff;
+  color: #0d2343;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.tw-card:hover .tw-arrow {
+  background: #0d2343;
+  border-color: #0d2343;
+  color: #ffffff;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1000px) {
+  .tw-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .tw-inner {
+    padding: 0 16px;
+  }
+
+  .tw-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tw-title {
+    font-size: 24px;
+  }
+}

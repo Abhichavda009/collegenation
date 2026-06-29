@@ -1,0 +1,167 @@
+.signin {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  padding: 36px 20px 28px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.signin-logo {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: #0d2343;
+  text-decoration: none;
+}
+
+.signin-main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-card {
+  width: 100%;
+  max-width: 388px;
+}
+
+.signin-title {
+  margin: 0 0 4px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.signin-sub {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.signin-sub-accent {
+  color: #e8453c;
+}
+
+.signin-shop {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 8px;
+  background: #5a31f5;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.signin-shop:hover {
+  background: #4a26da;
+}
+
+.signin-or {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+  color: #9aa3af;
+  font-size: 14px;
+}
+
+.signin-or::before,
+.signin-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.signin-email {
+  position: relative;
+}
+
+.signin-email input {
+  width: 100%;
+  height: 54px;
+  border: 1.5px solid #e8453c;
+  border-radius: 8px;
+  padding: 0 50px 0 16px;
+  font-size: 15px;
+  color: #1a1a1a;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.signin-email input::placeholder {
+  color: #6b7280;
+}
+
+.signin-arrow {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.signin-arrow:hover {
+  background: #f3f4f6;
+}
+
+.signin-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.signin-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #e8453c;
+  cursor: pointer;
+}
+
+.signin-terms {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #9aa3af;
+}
+
+.signin-terms a {
+  color: #6b7280;
+  text-decoration: underline;
+}
+
+.signin-privacy {
+  margin-top: 24px;
+  font-size: 14px;
+  color: #e8453c;
+  text-decoration: none;
+}
+
+.signin-privacy:hover {
+  text-decoration: underline;
+}
