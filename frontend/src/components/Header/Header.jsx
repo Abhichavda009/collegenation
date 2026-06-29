@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { apiFetch } from '../../lib/api';
+import { apiFetch, assetUrl } from '../../lib/api';
 import './Header.css';
 
 const CART_KEY = 'cn_cart';
@@ -344,7 +344,7 @@ const Header = ({ showUniversityTray = true }) => {
                   {cartItems.map((item) => (
                     <div className="cn-cart-item" key={item.key}>
                       <Link to={`/products/${item.slug}`} onClick={() => setCartOpen(false)}>
-                        <img src={item.image_url} alt={item.name} />
+                        <img src={assetUrl(item.image_url)} alt={item.name} />
                       </Link>
                       <div className="cn-cart-item-info">
                         <div className="cn-cart-item-top">

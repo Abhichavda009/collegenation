@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { apiFetch, apiUrl } from "../lib/api";
+import { apiFetch, apiUrl, assetUrl } from "../lib/api";
 import "./AdminPage.css";
 
 const ADMIN_EMAIL = "admin123@gmail.com";
@@ -131,9 +131,7 @@ const AdminPage = () => {
   };
 
   const imageSrc = (src) => {
-    if (!src) return "";
-    if (src.startsWith("http") || src.startsWith("data:")) return src;
-    return src;
+    return assetUrl(src);
   };
 
   const buildPayload = () => {

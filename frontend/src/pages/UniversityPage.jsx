@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { apiFetch } from "../lib/api";
+import { apiFetch, assetUrl } from "../lib/api";
 import "./UniversityPage.css";
 
 const departmentImage = (products, matcher) =>
@@ -103,7 +103,7 @@ const UniversityPage = () => {
                 </span>
               ) : (
                 <span className="upg-shortcut-img">
-                  {item.image ? <img src={item.image} alt="" /> : null}
+                  {item.image ? <img src={assetUrl(item.image)} alt="" /> : null}
                 </span>
               )}
               <span>{item.label}</span>
@@ -125,7 +125,7 @@ const UniversityPage = () => {
               className="upg-product-tile"
               key={product.id}
             >
-              <img src={product.image_url} alt={product.name} />
+              <img src={assetUrl(product.image_url)} alt={product.name} />
             </Link>
           ))}
         </section>

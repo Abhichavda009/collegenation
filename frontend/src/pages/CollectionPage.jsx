@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { apiFetch } from "../lib/api";
+import { apiFetch, assetUrl } from "../lib/api";
 import "./CollectionPage.css";
 
 const CATEGORY_NAMES = {
@@ -389,7 +389,7 @@ const CollectionPage = () => {
                               Best Seller
                             </span>
                           ) : null}
-                          <img src={p.image_url} alt={p.name} loading="lazy" />
+                          <img src={assetUrl(p.image_url)} alt={p.name} loading="lazy" />
                         </div>
                         <div className="cp-card-info">
                           <span className="cp-card-brand">{p.brand}</span>

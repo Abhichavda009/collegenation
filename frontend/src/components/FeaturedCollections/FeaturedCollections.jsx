@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { apiFetch } from "../../lib/api";
+import { apiFetch, assetUrl } from "../../lib/api";
 import "./FeaturedCollections.css";
 
 const COLOR_HEX = {
@@ -84,7 +84,7 @@ const FeaturedCollections = () => {
                 >
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <img src={p.image_url} alt={p.name} loading="lazy" />
+                <img src={assetUrl(p.image_url)} alt={p.name} loading="lazy" />
                 <span className="fc-choose">Choose Options</span>
               </Link>
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { assetUrl } from "../lib/api";
 import "./SignIn.css";
 
 const DEFAULT_OTP = "123456";
@@ -246,7 +247,7 @@ const SignIn = () => {
                         <div className="order-items">
                           {latestOrder.items.map((item) => (
                             <div className="order-item" key={item.key}>
-                              <img src={item.image_url} alt={item.name} />
+                              <img src={assetUrl(item.image_url)} alt={item.name} />
                               <div>
                                 <strong>{item.name}</strong>
                                 <span>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { apiFetch } from "../lib/api";
+import { apiFetch, assetUrl } from "../lib/api";
 import "./ProductPage.css";
 
 const COLOR_HEX = {
@@ -130,7 +130,7 @@ const ProductPage = () => {
             key: itemKey,
             slug: product.slug,
             name: product.name,
-            image_url: product.image_url,
+            image_url: assetUrl(product.image_url),
             price: product.price,
             color: product.color,
             size: selectedSize,
@@ -161,7 +161,7 @@ const ProductPage = () => {
           <button className="pd-zoom" aria-label="Zoom image">
             <i className="fa-solid fa-magnifying-glass"></i>
           </button>
-          <img src={product.image_url} alt={product.name} />
+          <img src={assetUrl(product.image_url)} alt={product.name} />
         </div>
 
         {/* Info */}

@@ -11,6 +11,20 @@ export function apiUrl(path) {
   return `${API_BASE}${path}`;
 }
 
+export function assetUrl(src) {
+  if (!src) return "";
+  if (
+    src.startsWith("http://") ||
+    src.startsWith("https://") ||
+    src.startsWith("data:") ||
+    src.startsWith("blob:")
+  ) {
+    return src;
+  }
+
+  return apiUrl(src.startsWith("/") ? src : `/${src}`);
+}
+
 export function apiFetch(path, options) {
   return fetch(apiUrl(path), options);
 }

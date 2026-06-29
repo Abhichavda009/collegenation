@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { assetUrl } from "../lib/api";
 import "./CartPage.css";
 
 const CART_KEY = "cn_cart";
@@ -91,7 +92,7 @@ const CartPage = () => {
                         &times;
                       </button>
                       <Link to={`/products/${item.slug}`} className="cart-image-link">
-                        <img src={item.image_url} alt={item.name} />
+                        <img src={assetUrl(item.image_url)} alt={item.name} />
                       </Link>
                       <div className="cart-product-copy">
                         <Link to={`/products/${item.slug}`}>{item.name}</Link>

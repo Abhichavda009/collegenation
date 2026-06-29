@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { assetUrl } from "../lib/api";
 import "./CheckoutPage.css";
 
 const CART_KEY = "cn_cart";
@@ -225,7 +226,7 @@ const CheckoutPage = () => {
                 {items.map((item) => (
                   <div className="checkout-summary-item" key={item.key}>
                     <div className="checkout-thumb-wrap">
-                      <img src={item.image_url} alt={item.name} />
+                      <img src={assetUrl(item.image_url)} alt={item.name} />
                       <span>{item.quantity}</span>
                     </div>
                     <div>

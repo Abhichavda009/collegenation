@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { apiFetch } from "../../lib/api";
+import { apiFetch, assetUrl } from "../../lib/api";
 import "./TrendingProducts.css";
 
 const money = (n) =>
@@ -31,7 +31,7 @@ const TrendingProducts = () => {
             <Link className="tw-card" to="/collections/all-products" key={p.id}>
               <img
                 className="tw-thumb"
-                src={p.image_url}
+                src={assetUrl(p.image_url)}
                 alt={p.name}
                 loading="lazy"
               />
