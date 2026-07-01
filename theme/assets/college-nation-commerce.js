@@ -60,6 +60,9 @@
         section.querySelectorAll(`[data-cn-option-position="${position}"]`).forEach((item) => item.classList.remove('is-active'));
         button.classList.add('is-active');
 
+        const optionLabel = section.querySelector(`[data-cn-option-selected="${position}"]`);
+        if (optionLabel) optionLabel.textContent = button.dataset.cnOptionValue;
+
         const match = variants.find((variant) =>
           variant.options.every((value, index) => selected[String(index + 1)] === value)
         );
@@ -84,5 +87,23 @@
         input.value = Math.max(1, Number(input.value || 1) + delta);
       });
     });
+
+    const sizechart = section.querySelector('[data-cn-sizechart]');
+    if (sizechart) {
+      const closeSizechart = () => {
+        sizechart.hidden = true;
+      };
+      section.querySelectorAll('[data-cn-sizechart-open]').forEach((btn) =>
+        btn.addEventListener('click', () => {
+          sizechart.hidden = false;
+        })
+      );
+      sizechart.querySelectorAll('[data-cn-sizechart-close]').forEach((btn) =>
+        btn.addEventListener('click', closeSizechart)
+      );
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeSizechart();
+      });
+    }
   });
 })();

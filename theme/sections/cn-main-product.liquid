@@ -133,24 +133,67 @@
 
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
-              <div class="cn-product-option">
-                <span class="cn-product-option-label">
-                  {{ option.name }}:
-                  <span>{{ option.selected_value }}</span>
-                </span>
-                <div class="cn-product-values">
-                  {%- for value in option.values -%}
-                    <button
-                      type="button"
-                      class="cn-product-value{% if option.selected_value == value %} is-active{% endif %}"
-                      data-cn-option-position="{{ option.position }}"
-                      data-cn-option-value="{{ value | escape }}"
-                    >
-                      {{ value }}
-                    </button>
-                  {%- endfor -%}
+              {%- assign opt_down = option.name | downcase -%}
+              {%- if opt_down contains 'color' or opt_down contains 'colour' -%}
+                <div class="cn-product-option cn-product-option--color">
+                  <span class="cn-product-option-label">
+                    Selected {{ option.name }}: <span class="cn-product-option-current" data-cn-option-selected="{{ option.position }}">{{ option.selected_value }}</span>
+                  </span>
+                  <div class="cn-product-values cn-product-swatches">
+                    {%- for value in option.values -%}
+                      <button
+                        type="button"
+                        class="cn-product-swatch{% if option.selected_value == value %} is-active{% endif %}"
+                        data-cn-option-position="{{ option.position }}"
+                        data-cn-option-value="{{ value | escape }}"
+                        title="{{ value | escape }}"
+                        aria-label="{{ value | escape }}"
+                      >
+                        <span class="cn-product-swatch-color" style="background-color: {{ value | downcase | replace: ' ', '' | replace: '/', '' }};"></span>
+                      </button>
+                    {%- endfor -%}
+                  </div>
                 </div>
-              </div>
+              {%- elsif opt_down contains 'size' -%}
+                <div class="cn-product-option cn-product-option--size">
+                  <span class="cn-product-option-label cn-product-size-head">
+                    <span>Select {{ option.name }}</span>
+                    {%- if section.settings.show_size_chart -%}
+                      <button type="button" class="cn-product-sizechart-link" data-cn-sizechart-open>{{ section.settings.size_chart_label }}</button>
+                    {%- endif -%}
+                  </span>
+                  <div class="cn-product-values cn-product-sizes">
+                    {%- for value in option.values -%}
+                      <button
+                        type="button"
+                        class="cn-product-value cn-product-size{% if option.selected_value == value %} is-active{% endif %}"
+                        data-cn-option-position="{{ option.position }}"
+                        data-cn-option-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- else -%}
+                <div class="cn-product-option">
+                  <span class="cn-product-option-label">
+                    {{ option.name }}: <span class="cn-product-option-current" data-cn-option-selected="{{ option.position }}">{{ option.selected_value }}</span>
+                  </span>
+                  <div class="cn-product-values">
+                    {%- for value in option.values -%}
+                      <button
+                        type="button"
+                        class="cn-product-value{% if option.selected_value == value %} is-active{% endif %}"
+                        data-cn-option-position="{{ option.position }}"
+                        data-cn-option-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
             {%- endfor -%}
           {%- endunless -%}
 
@@ -287,6 +330,38 @@
       {%- endfor -%}
     ]
   </script>
+
+  {%- if section.settings.show_size_chart -%}
+    <div class="cn-sizechart" data-cn-sizechart hidden>
+      <div class="cn-sizechart-backdrop" data-cn-sizechart-close></div>
+      <div class="cn-sizechart-dialog" role="dialog" aria-modal="true" aria-label="{{ section.settings.size_chart_heading | escape }}">
+        <button type="button" class="cn-sizechart-x" data-cn-sizechart-close aria-label="Close">&times;</button>
+        <h2 class="cn-sizechart-title">{{ section.settings.size_chart_heading }}</h2>
+        {%- assign sc_rows = section.settings.size_chart_rows | strip | newline_to_br | split: '<br />' -%}
+        <div class="cn-sizechart-table-wrap">
+          <table class="cn-sizechart-table">
+            <thead>
+              <tr>
+                {%- assign sc_head = sc_rows[0] | strip | split: '|' -%}
+                {%- for c in sc_head -%}<th>{{ c | strip }}</th>{%- endfor -%}
+              </tr>
+            </thead>
+            <tbody>
+              {%- for row in sc_rows offset: 1 -%}
+                {%- assign rc = row | strip -%}
+                {%- if rc != blank -%}
+                  <tr>
+                    {%- assign cells = rc | split: '|' -%}
+                    {%- for c in cells -%}<td>{{ c | strip }}</td>{%- endfor -%}
+                  </tr>
+                {%- endif -%}
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
 </section>
 
 <script src="{{ 'college-nation-commerce.js' | asset_url }}" defer></script>
@@ -313,7 +388,12 @@
     { "type": "text", "id": "specifications_heading", "label": "Specifications heading", "default": "Specifications" },
     { "type": "header", "content": "Product details (category metafields)" },
     { "type": "checkbox", "id": "show_specs", "label": "Show category attribute details", "default": true },
-    { "type": "text", "id": "specs_heading", "label": "Product details heading", "default": "Product Details" }
+    { "type": "text", "id": "specs_heading", "label": "Product details heading", "default": "Product Details" },
+    { "type": "header", "content": "Size chart" },
+    { "type": "checkbox", "id": "show_size_chart", "label": "Show size chart link", "default": true },
+    { "type": "text", "id": "size_chart_label", "label": "Size chart link label", "default": "Size Chart" },
+    { "type": "text", "id": "size_chart_heading", "label": "Size chart popup heading", "default": "Size Chart" },
+    { "type": "textarea", "id": "size_chart_rows", "label": "Size chart rows (first line = headers, cells separated by |)", "default": "Size | Chest (in) | Length (in)\nS | 34-36 | 28\nM | 38-40 | 29\nL | 42-44 | 30\nXL | 46-48 | 31\nXXL | 50-52 | 32" }
   ],
   "blocks": [
     {
