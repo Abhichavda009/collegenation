@@ -1,0 +1,218 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "college_nation_header": {
+      "type": "cn-header",
+      "blocks": {
+        "university_clemson": {
+          "type": "university",
+          "settings": {
+            "name": "Clemson",
+            "logo_text": "C",
+            "conference": "ACC",
+            "link": "",
+            "primary_color": "#522d80",
+            "logo_color": "#f56600"
+          }
+        },
+        "university_syracuse": {
+          "type": "university",
+          "settings": {
+            "name": "Syracuse",
+            "logo_text": "S",
+            "conference": "ACC",
+            "link": "",
+            "primary_color": "#d44500",
+            "logo_color": "#0b2341"
+          }
+        },
+        "university_virginia": {
+          "type": "university",
+          "settings": {
+            "name": "Virginia",
+            "logo_text": "V",
+            "conference": "ACC",
+            "link": "",
+            "primary_color": "#232d4b",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_maryland": {
+          "type": "university",
+          "settings": {
+            "name": "Maryland",
+            "logo_text": "M",
+            "conference": "Big Ten",
+            "link": "",
+            "primary_color": "#e03a3e",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_michigan": {
+          "type": "university",
+          "settings": {
+            "name": "Michigan",
+            "logo_text": "M",
+            "conference": "Big Ten",
+            "link": "",
+            "primary_color": "#00274c",
+            "logo_color": "#ffcb05"
+          }
+        },
+        "university_ucla": {
+          "type": "university",
+          "settings": {
+            "name": "UCLA",
+            "logo_text": "UCLA",
+            "conference": "Big Ten",
+            "link": "",
+            "primary_color": "#2774ae",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_washington": {
+          "type": "university",
+          "settings": {
+            "name": "Washington",
+            "logo_text": "W",
+            "conference": "Big Ten",
+            "link": "",
+            "primary_color": "#4b2e83",
+            "logo_color": "#b7a57a"
+          }
+        },
+        "university_arizona": {
+          "type": "university",
+          "settings": {
+            "name": "Arizona",
+            "logo_text": "A",
+            "conference": "Big 12",
+            "link": "",
+            "primary_color": "#0b2341",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_kansas": {
+          "type": "university",
+          "settings": {
+            "name": "Kansas",
+            "logo_text": "KU",
+            "conference": "Big 12",
+            "link": "",
+            "primary_color": "#0051ba",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_tcu": {
+          "type": "university",
+          "settings": {
+            "name": "TCU",
+            "logo_text": "TCU",
+            "conference": "Big 12",
+            "link": "",
+            "primary_color": "#4d1979",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_villanova": {
+          "type": "university",
+          "settings": {
+            "name": "Villanova",
+            "logo_text": "V",
+            "conference": "Big East",
+            "link": "",
+            "primary_color": "#132247",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_alabama": {
+          "type": "university",
+          "settings": {
+            "name": "Alabama",
+            "logo_text": "A",
+            "conference": "SEC",
+            "link": "",
+            "primary_color": "#9e1b32",
+            "logo_color": "#ffffff"
+          }
+        },
+        "university_lsu": {
+          "type": "university",
+          "settings": {
+            "name": "LSU",
+            "logo_text": "LSU",
+            "conference": "SEC",
+            "link": "",
+            "primary_color": "#461d7c",
+            "logo_color": "#fdd023"
+          }
+        },
+        "university_missouri": {
+          "type": "university",
+          "settings": {
+            "name": "Missouri",
+            "logo_text": "M",
+            "conference": "SEC",
+            "link": "",
+            "primary_color": "#f1b82d",
+            "logo_color": "#000000"
+          }
+        },
+        "university_tennessee": {
+          "type": "university",
+          "settings": {
+            "name": "Tennessee",
+            "logo_text": "T",
+            "conference": "SEC",
+            "link": "",
+            "primary_color": "#f77f00",
+            "logo_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "university_clemson",
+        "university_syracuse",
+        "university_virginia",
+        "university_maryland",
+        "university_michigan",
+        "university_ucla",
+        "university_washington",
+        "university_arizona",
+        "university_kansas",
+        "university_tcu",
+        "university_villanova",
+        "university_alabama",
+        "university_lsu",
+        "university_missouri",
+        "university_tennessee"
+      ],
+      "settings": {
+        "announcement_text": "Free Shipping on orders over $45",
+        "instagram_url": "",
+        "logo": "",
+        "main_menu": "main-menu",
+        "university_selector_label": "All Universities",
+        "search_placeholder": "Try searching for Kansas Tees...",
+        "show_university_tray": true,
+        "universities_link": "",
+        "view_all_label": "View All",
+        "store_locator_label": "Find a Store",
+        "store_locator_link": ""
+      }
+    }
+  },
+  "order": [
+    "college_nation_header"
+  ]
+}

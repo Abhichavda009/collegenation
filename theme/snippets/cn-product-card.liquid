@@ -1,0 +1,85 @@
+{%- liquid
+  assign card_product = product
+  assign hover_image = card_product.images[1]
+-%}
+
+<article class="cn-commerce-card">
+  <a class="cn-commerce-card-media" href="{{ card_product.url }}">
+
+    {%- if card_product.available == false -%}
+      <span class="cn-commerce-badge cn-commerce-badge-out">
+        Out of Stock
+      </span>
+    {%- elsif card_product.compare_at_price > card_product.price -%}
+      <span class="cn-commerce-badge cn-commerce-badge-sale">
+        Sale
+      </span>
+    {%- endif -%}
+
+    {%- if card_product.featured_image -%}
+      {{
+        card_product.featured_image
+        | image_url: width: 720
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw',
+          widths: '320,480,640,720',
+          alt: card_product.title,
+          class: 'cn-commerce-card-img cn-commerce-card-img-primary'
+      }}
+    {%- endif -%}
+
+    {%- if hover_image -%}
+      {{
+        hover_image
+        | image_url: width: 720
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw',
+          widths: '320,480,640,720',
+          alt: card_product.title,
+          class: 'cn-commerce-card-img cn-commerce-card-img-hover'
+      }}
+    {%- endif -%}
+
+    {%- if card_product.available and card_product.variants.size == 1 -%}
+      <form method="post" action="{{ routes.cart_add_url }}" class="cn-commerce-quick-add">
+        <input
+          type="hidden"
+          name="id"
+          value="{{ card_product.selected_or_first_available_variant.id }}"
+        >
+        <button type="submit">
+          Quick Add
+        </button>
+      </form>
+    {%- else -%}
+      <span class="cn-commerce-choose">
+        Choose Options
+      </span>
+    {%- endif -%}
+
+  </a>
+
+  <div class="cn-commerce-card-info">
+
+    <span class="cn-commerce-card-brand">
+      {{ card_product.vendor }}
+    </span>
+
+    <a href="{{ card_product.url }}" class="cn-commerce-card-name">
+      {{ card_product.title }}
+    </a>
+
+    <span class="cn-commerce-card-price{% if card_product.compare_at_price > card_product.price %} is-sale{% endif %}">
+      {{ card_product.price | money }}
+
+      {%- if card_product.compare_at_price > card_product.price -%}
+        <span class="cn-commerce-card-was">
+          {{ card_product.compare_at_price | money }}
+        </span>
+      {%- endif -%}
+    </span>
+
+  </div>
+</article>

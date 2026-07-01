@@ -1,0 +1,34 @@
+{{ 'college-nation-pages.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-page">
+  <div class="cn-page-container" style="--cn-page-padding-top: {{ section.settings.padding_top }}px; --cn-page-padding-bottom: {{ section.settings.padding_bottom }}px;">
+    {%- if section.settings.show_breadcrumbs -%}
+      {%- render 'cn-breadcrumb', title: page.title -%}
+    {%- endif -%}
+    <h1 class="cn-page-title">{{ page.title }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <div class="cn-page-subtitle">{{ section.settings.intro }}</div>
+    {%- endif -%}
+    <div class="cn-static-content">
+      {%- if page.content != blank -%}
+        {{ page.content }}
+      {%- else -%}
+        {{ section.settings.fallback_content }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CN static page",
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumbs", "label": "Show breadcrumbs", "default": true },
+    { "type": "richtext", "id": "intro", "label": "Intro text" },
+    { "type": "richtext", "id": "fallback_content", "label": "Fallback content", "default": "<p>Add page content in Shopify Admin. This template will render it here using the College Nation page design.</p>" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "CN static page" }]
+}
+{% endschema %}

@@ -1,0 +1,372 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cn_hero_slider": {
+      "type": "cn-hero-slider",
+      "blocks": {
+        "slide_drop_alert": {
+          "type": "slide",
+          "settings": {
+            "badge": "Drop Alert",
+            "heading": "DROP ALERT",
+            "text": "<p>Fresh Michigan and Villanova styles from Pro Standard and Johnnie-O.</p>",
+            "button_label": "Shop the Drop",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1100&q=80",
+            "panel_color": "#0d2343"
+          }
+        },
+        "slide_new_arrivals": {
+          "type": "slide",
+          "settings": {
+            "badge": "Just In",
+            "heading": "NEW ARRIVALS",
+            "text": "<p>Gear up for the season with the latest officially licensed campus styles.</p>",
+            "button_label": "Shop New",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1100&q=80",
+            "panel_color": "#6d1f2b"
+          }
+        },
+        "slide_game_day": {
+          "type": "slide",
+          "settings": {
+            "badge": "Game Day",
+            "heading": "GAME DAY READY",
+            "text": "<p>Tees, hoodies, and accessories for every fan, every team, every weekend.</p>",
+            "button_label": "Shop All",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=80",
+            "panel_color": "#14342b"
+          }
+        },
+        "slide_gifts": {
+          "type": "slide",
+          "settings": {
+            "badge": "Gifts",
+            "heading": "GIFTS FOR GRADS",
+            "text": "<p>Celebrate the Class of 2026 with the perfect campus gift.</p>",
+            "button_label": "Shop Gifts",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1100&q=80",
+            "panel_color": "#2a1a4a"
+          }
+        }
+      },
+      "block_order": [
+        "slide_drop_alert",
+        "slide_new_arrivals",
+        "slide_game_day",
+        "slide_gifts"
+      ],
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 8
+      }
+    },
+    "cn_featured_products": {
+      "type": "cn-featured-products",
+      "settings": {
+        "heading": "Featured Collections",
+        "collection": "all",
+        "product_limit": 10,
+        "show_promo_card": true,
+        "promo_script": "Shop",
+        "promo_title": "NEW\nARRIVALS",
+        "promo_link": "shopify://collections/all",
+        "padding_top": 48,
+        "padding_bottom": 56
+      }
+    },
+    "cn_promo_tiles": {
+      "type": "cn-promo-tiles",
+      "blocks": {
+        "promo_best_sellers": {
+          "type": "tile",
+          "settings": {
+            "heading": "BEST\nSELLERS",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80"
+          }
+        },
+        "promo_outerwear": {
+          "type": "tile",
+          "settings": {
+            "heading": "WINNING\nOUTERWEAR",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1000&q=80"
+          }
+        }
+      },
+      "block_order": [
+        "promo_best_sellers",
+        "promo_outerwear"
+      ],
+      "settings": {
+        "padding_top": 8,
+        "padding_bottom": 72
+      }
+    },
+    "cn_shop_by_collection": {
+      "type": "cn-shop-by-collection",
+      "blocks": {
+        "tab_mens": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Men's",
+            "overlay_title": "MEN'S",
+            "overlay_script": "Collection",
+            "description": "<p>Find your <strong>fit</strong> by <strong>Collections</strong> that match your campus life.</p>",
+            "button_label": "Shop Now",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1100&q=80",
+            "thumb_urls": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80"
+          }
+        },
+        "tab_womens": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Women's",
+            "overlay_title": "WOMEN'S",
+            "overlay_script": "Collection",
+            "description": "<p>Find your <strong>fit</strong> by <strong>Collections</strong> that match your campus life.</p>",
+            "button_label": "Shop Now",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1100&q=80",
+            "thumb_urls": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=200&q=80"
+          }
+        },
+        "tab_kids": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Kids",
+            "overlay_title": "KIDS",
+            "overlay_script": "Collection",
+            "description": "<p>Find your <strong>fit</strong> by <strong>Collections</strong> that match your campus life.</p>",
+            "button_label": "Shop Now",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1100&q=80",
+            "thumb_urls": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80,https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=200&q=80"
+          }
+        }
+      },
+      "block_order": [
+        "tab_mens",
+        "tab_womens",
+        "tab_kids"
+      ],
+      "settings": {
+        "eyebrow": "Shop By Collection",
+        "padding_top": 40,
+        "padding_bottom": 80
+      }
+    },
+    "cn_university_collections": {
+      "type": "cn-university-collections",
+      "blocks": {
+        "uni_alabama": {
+          "type": "university",
+          "settings": {
+            "name": "Alabama",
+            "logo_text": "A",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#9e1b32",
+            "logo_color": "#ffffff"
+          }
+        },
+        "uni_kansas": {
+          "type": "university",
+          "settings": {
+            "name": "Kansas",
+            "logo_text": "KU",
+            "logo_size": 56,
+            "link": "shopify://collections/all",
+            "primary_color": "#0051ba",
+            "logo_color": "#ffffff"
+          }
+        },
+        "uni_michigan": {
+          "type": "university",
+          "settings": {
+            "name": "Michigan",
+            "logo_text": "M",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#00274c",
+            "logo_color": "#ffcb05"
+          }
+        },
+        "uni_ucla": {
+          "type": "university",
+          "settings": {
+            "name": "UCLA",
+            "logo_text": "UCLA",
+            "logo_size": 52,
+            "link": "shopify://collections/all",
+            "primary_color": "#2774ae",
+            "logo_color": "#ffffff"
+          }
+        },
+        "uni_villanova": {
+          "type": "university",
+          "settings": {
+            "name": "Villanova",
+            "logo_text": "V",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#132247",
+            "logo_color": "#ffffff"
+          }
+        },
+        "uni_clemson": {
+          "type": "university",
+          "settings": {
+            "name": "Clemson",
+            "logo_text": "C",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#f56600",
+            "logo_color": "#522d80"
+          }
+        },
+        "uni_lsu": {
+          "type": "university",
+          "settings": {
+            "name": "LSU",
+            "logo_text": "LSU",
+            "logo_size": 52,
+            "link": "shopify://collections/all",
+            "primary_color": "#461d7c",
+            "logo_color": "#fdd023"
+          }
+        },
+        "uni_tennessee": {
+          "type": "university",
+          "settings": {
+            "name": "Tennessee",
+            "logo_text": "T",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#ff8200",
+            "logo_color": "#ffffff"
+          }
+        },
+        "uni_syracuse": {
+          "type": "university",
+          "settings": {
+            "name": "Syracuse",
+            "logo_text": "S",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#d44500",
+            "logo_color": "#ffffff"
+          }
+        },
+        "uni_washington": {
+          "type": "university",
+          "settings": {
+            "name": "Washington",
+            "logo_text": "W",
+            "logo_size": 72,
+            "link": "shopify://collections/all",
+            "primary_color": "#4b2e83",
+            "logo_color": "#e8e3d3"
+          }
+        }
+      },
+      "block_order": [
+        "uni_alabama",
+        "uni_kansas",
+        "uni_michigan",
+        "uni_ucla",
+        "uni_villanova",
+        "uni_clemson",
+        "uni_lsu",
+        "uni_tennessee",
+        "uni_syracuse",
+        "uni_washington"
+      ],
+      "settings": {
+        "heading": "University Collections",
+        "padding_top": 8,
+        "padding_bottom": 80
+      }
+    },
+    "cn_lifestyle_banners": {
+      "type": "cn-lifestyle-banners",
+      "blocks": {
+        "banner_hats": {
+          "type": "banner",
+          "settings": {
+            "heading_line_1": "TOP OFF",
+            "heading_line_2": "YOUR",
+            "script_word": "Look",
+            "text": "Cool, comfy hats that elevate your fitness game.",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80"
+          }
+        },
+        "banner_gifts": {
+          "type": "banner",
+          "settings": {
+            "heading_line_1": "SHOP",
+            "heading_line_2": "",
+            "script_word": "Gifts",
+            "text": "Give the gift that reps their roots.",
+            "link": "shopify://collections/all",
+            "image": "",
+            "fallback_image_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=900&q=80"
+          }
+        }
+      },
+      "block_order": [
+        "banner_hats",
+        "banner_gifts"
+      ],
+      "settings": {
+        "padding_top": 8,
+        "padding_bottom": 56
+      }
+    },
+    "cn_trending_products": {
+      "type": "cn-trending-products",
+      "settings": {
+        "heading": "Trending This Week",
+        "collection": "all",
+        "product_limit": 6,
+        "link_label": "Shop All Products",
+        "link": "shopify://collections/all",
+        "padding_top": 8,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "cn_hero_slider",
+    "cn_featured_products",
+    "cn_promo_tiles",
+    "cn_shop_by_collection",
+    "cn_university_collections",
+    "cn_lifestyle_banners",
+    "cn_trending_products"
+  ]
+}

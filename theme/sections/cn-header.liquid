@@ -1,0 +1,330 @@
+{{ 'college-nation-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign main_menu = section.settings.main_menu
+  assign university_page_url = section.settings.universities_link | default: '/pages/universities'
+-%}
+
+<header class="cn-global-header" data-cn-header>
+  <div class="cn-top-banner">
+    <div class="cn-container">
+      <span class="cn-banner-text">{{ section.settings.announcement_text }}</span>
+      {%- if section.settings.instagram_url != blank -%}
+        <a class="cn-social-icon" href="{{ section.settings.instagram_url }}" aria-label="Instagram">
+          <span aria-hidden="true">IG</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="cn-sticky-bar">
+    <div class="cn-mid-section">
+      <div class="cn-container">
+        <a href="{{ routes.root_url }}" class="cn-brand-logo" aria-label="{{ shop.name | escape }} - Home">
+          {%- if section.settings.logo != blank -%}
+            {{
+              section.settings.logo
+              | image_url: width: 240
+              | image_tag:
+                class: 'cn-logo-image',
+                widths: '120, 180, 240',
+                sizes: '(max-width: 749px) 96px, 132px',
+                alt: shop.name
+            }}
+          {%- else -%}
+            <svg
+              class="cn-logo-svg"
+              viewBox="0 0 120 134"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="{{ shop.name | escape }}"
+            >
+              <defs>
+                <path id="cnArc-{{ section.id }}" d="M14,48 A54,42 0 0 1 106,48" fill="none" />
+              </defs>
+              <text class="cn-logo-arc-text" text-anchor="middle">
+                <textPath href="#cnArc-{{ section.id }}" startOffset="50%">COLLEGE&#160;&#160;NATION</textPath>
+              </text>
+              <path d="M20,52 H100 V78 C100,102 82,120 60,130 C38,120 20,102 20,78 Z" fill="#cf242a" stroke="#0d2343" stroke-width="4" stroke-linejoin="round" />
+              <path d="M22,54 H98 V68 H22 Z" fill="#0d2343" />
+              <text x="60" y="98" class="cn-logo-monogram" text-anchor="middle">CN</text>
+              <g fill="#ffffff">
+                <path d="M47,104 L60,98 L73,104 Z" />
+                <rect x="47" y="105" width="26" height="2.4" />
+                <rect x="49.5" y="108.5" width="3" height="8" />
+                <rect x="55" y="108.5" width="3" height="8" />
+                <rect x="62" y="108.5" width="3" height="8" />
+                <rect x="67.5" y="108.5" width="3" height="8" />
+                <rect x="47" y="117" width="26" height="2.4" />
+              </g>
+            </svg>
+          {%- endif -%}
+        </a>
+
+        <div class="cn-search-combo">
+          <div class="cn-select-box">
+            <button type="button" class="cn-university-trigger" aria-expanded="false" aria-controls="cn-university-menu-{{ section.id }}" data-cn-university-trigger>
+              <span>{{ section.settings.university_selector_label }}</span>
+              <span class="cn-select-arrow" aria-hidden="true">⌄</span>
+            </button>
+          </div>
+
+          <form class="cn-input-box" action="{{ routes.search_url }}" method="get" role="search">
+            <input
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ section.settings.search_placeholder | escape }}"
+              aria-label="Search"
+            >
+            <button class="cn-search-button" type="submit" aria-label="Search">
+              <span aria-hidden="true">⌕</span>
+            </button>
+          </form>
+
+          <div class="cn-university-menu" id="cn-university-menu-{{ section.id }}" hidden data-cn-university-menu>
+            <div class="cn-conference-tabs" role="tablist" aria-label="{{ section.settings.university_selector_label | escape }}">
+              {%- assign conference_order = 'ACC,Big Ten,Big 12,Big East,SEC' | split: ',' -%}
+              {%- for conference in conference_order -%}
+                {%- assign has_conference = false -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'university' and block.settings.conference == conference -%}
+                    {%- assign has_conference = true -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if has_conference -%}
+                  <button
+                    type="button"
+                    class="{% if forloop.first %}is-active{% endif %}"
+                    data-cn-conference-tab="{{ conference | handleize }}"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  >
+                    <span class="cn-conf-mark cn-conf-{{ conference | handleize }}">{{ conference }}</span>
+                    <span>{{ conference }}</span>
+                  </button>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            {%- for conference in conference_order -%}
+              <div class="cn-conference-schools{% unless forloop.first %} is-hidden{% endunless %}" data-cn-conference-panel="{{ conference | handleize }}">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'university' and block.settings.conference == conference -%}
+                    {%- assign university_url = block.settings.link | default: routes.all_products_collection_url -%}
+                    <a class="cn-conference-school" href="{{ university_url }}" {{ block.shopify_attributes }}>
+                      <span class="cn-conference-school-logo" style="background-color: {{ block.settings.primary_color }};">
+                        <span style="color: {{ block.settings.logo_color }};">{{ block.settings.logo_text }}</span>
+                      </span>
+                      <span>{{ block.settings.name }}</span>
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="cn-user-bar">
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="cn-account-link">
+            <span class="cn-user-icon" aria-hidden="true">♡</span>
+            <span>{% if customer %}Account{% else %}Sign in{% endif %}</span>
+          </a>
+          <a href="{{ routes.cart_url }}" class="cn-bag-wrapper" aria-label="Cart">
+            <span class="cn-bag-icon" aria-hidden="true">Bag</span>
+            {%- if cart.item_count > 0 -%}
+              <span class="cn-bag-count">{{ cart.item_count }}</span>
+            {%- endif -%}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="cn-navbar-links" aria-label="Main navigation">
+      <div class="cn-container">
+        <ul class="cn-nav-ul">
+          {%- if main_menu != blank and main_menu.links.size > 0 -%}
+            {%- for link in main_menu.links -%}
+              <li>
+                <a href="{{ link.url }}" {% if link.current %}aria-current="page" class="is-active"{% endif %}>{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="{{ routes.all_products_collection_url }}">Shop All</a></li>
+            <li><a href="{{ routes.collections_url }}">Collections</a></li>
+            <li><a href="{{ routes.search_url }}">Search</a></li>
+          {%- endif -%}
+        </ul>
+        {%- if section.settings.store_locator_label != blank -%}
+          <a href="{{ section.settings.store_locator_link | default: '#' }}" class="cn-nav-store">
+            <span class="cn-pin-icon" aria-hidden="true">•</span>
+            <span>{{ section.settings.store_locator_label }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </nav>
+  </div>
+
+  {%- if section.settings.show_university_tray -%}
+    <div class="cn-uni-tray">
+      <div class="cn-container">
+        <div class="cn-uni-scroll">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'university' -%}
+              {%- assign tray_url = block.settings.link | default: routes.all_products_collection_url -%}
+              <a class="cn-uni-node" href="{{ tray_url }}" {{ block.shopify_attributes }}>
+                <span class="cn-node-circle" style="background-color: {{ block.settings.primary_color }};">
+                  <span style="color: {{ block.settings.logo_color }};">{{ block.settings.logo_text }}</span>
+                </span>
+                <span class="cn-node-name">{{ block.settings.name }}</span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="cn-view-all-box">
+          <a href="{{ university_page_url }}" class="cn-view-all-anchor">{{ section.settings.view_all_label }}</a>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</header>
+
+<script src="{{ 'college-nation-header.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "College Nation header",
+  "tag": "section",
+  "class": "cn-header-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free Shipping on orders over $45"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram link"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "university_selector_label",
+      "label": "University selector label",
+      "default": "All Universities"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Try searching for Kansas Tees..."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_university_tray",
+      "label": "Show university tray",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "universities_link",
+      "label": "View all universities link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all label",
+      "default": "View All"
+    },
+    {
+      "type": "text",
+      "id": "store_locator_label",
+      "label": "Store locator label",
+      "default": "Find a Store"
+    },
+    {
+      "type": "url",
+      "id": "store_locator_link",
+      "label": "Store locator link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "university",
+      "name": "University",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Alabama"
+        },
+        {
+          "type": "text",
+          "id": "logo_text",
+          "label": "Logo text",
+          "default": "A"
+        },
+        {
+          "type": "select",
+          "id": "conference",
+          "label": "Conference",
+          "options": [
+            { "value": "ACC", "label": "ACC" },
+            { "value": "Big Ten", "label": "Big Ten" },
+            { "value": "Big 12", "label": "Big 12" },
+            { "value": "Big East", "label": "Big East" },
+            { "value": "SEC", "label": "SEC" }
+          ],
+          "default": "SEC"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "color",
+          "id": "primary_color",
+          "label": "Primary color",
+          "default": "#0d2343"
+        },
+        {
+          "type": "color",
+          "id": "logo_color",
+          "label": "Logo color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "College Nation header",
+      "blocks": [
+        { "type": "university", "settings": { "name": "Clemson", "logo_text": "C", "conference": "ACC", "primary_color": "#522d80", "logo_color": "#f56600" } },
+        { "type": "university", "settings": { "name": "Syracuse", "logo_text": "S", "conference": "ACC", "primary_color": "#d44500", "logo_color": "#0b2341" } },
+        { "type": "university", "settings": { "name": "Virginia", "logo_text": "V", "conference": "ACC", "primary_color": "#232d4b", "logo_color": "#ffffff" } },
+        { "type": "university", "settings": { "name": "Michigan", "logo_text": "M", "conference": "Big Ten", "primary_color": "#00274c", "logo_color": "#ffcb05" } },
+        { "type": "university", "settings": { "name": "Kansas", "logo_text": "KU", "conference": "Big 12", "primary_color": "#0051ba", "logo_color": "#ffffff" } },
+        { "type": "university", "settings": { "name": "Villanova", "logo_text": "V", "conference": "Big East", "primary_color": "#132247", "logo_color": "#ffffff" } },
+        { "type": "university", "settings": { "name": "Alabama", "logo_text": "A", "conference": "SEC", "primary_color": "#9e1b32", "logo_color": "#ffffff" } },
+        { "type": "university", "settings": { "name": "LSU", "logo_text": "LSU", "conference": "SEC", "primary_color": "#461d7c", "logo_color": "#fdd023" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

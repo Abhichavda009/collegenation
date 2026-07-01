@@ -1,0 +1,77 @@
+{{ 'college-nation-customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'college-nation-customer.js' | asset_url }}" defer></script>
+
+<section class="cn-customer">
+  <div class="cn-customer__shell">
+    <a class="cn-customer__logo" href="{{ routes.root_url }}">COLLEGE NATION</a>
+
+    <div class="cn-customer__card" data-cn-login-form>
+      <h1>{{ section.settings.heading }}</h1>
+      <p class="cn-customer__sub">{{ section.settings.subheading }}</p>
+
+      {%- form 'customer_login', class: 'cn-customer__form' -%}
+        {%- if form.errors -%}
+          <div class="cn-customer__errors">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+
+        <label class="cn-customer__field">
+          <span>Email</span>
+          <input type="email" name="customer[email]" autocomplete="email" autocorrect="off" autocapitalize="off" required>
+        </label>
+
+        {%- if form.password_needed -%}
+          <label class="cn-customer__field">
+            <span>Password</span>
+            <input type="password" name="customer[password]" autocomplete="current-password" required>
+          </label>
+        {%- endif -%}
+
+        <button class="cn-customer__button" type="submit">{{ section.settings.login_label }}</button>
+      {%- endform -%}
+
+      <div class="cn-customer__links">
+        <button class="cn-customer__text-link button-unstyled" type="button" data-cn-recover-toggle>Forgot password?</button>
+        <a href="{{ routes.account_register_url }}">Create account</a>
+      </div>
+    </div>
+
+    <div class="cn-customer__card" data-cn-recover-form hidden>
+      <h1>{{ section.settings.recover_heading }}</h1>
+      <p class="cn-customer__sub">{{ section.settings.recover_text }}</p>
+
+      {%- form 'recover_customer_password', class: 'cn-customer__form' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="cn-customer__notice">Password reset email sent.</div>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="cn-customer__errors">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+
+        <label class="cn-customer__field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" autocorrect="off" autocapitalize="off" required>
+        </label>
+
+        <button class="cn-customer__button" type="submit">{{ section.settings.recover_label }}</button>
+      {%- endform -%}
+
+      <div class="cn-customer__links">
+        <button class="cn-customer__text-link button-unstyled" type="button" data-cn-recover-toggle>Back to login</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CollegeNation login",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sign in" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Sign in or create an account" },
+    { "type": "text", "id": "login_label", "label": "Login button label", "default": "Sign in" },
+    { "type": "text", "id": "recover_heading", "label": "Recover heading", "default": "Reset password" },
+    { "type": "text", "id": "recover_text", "label": "Recover text", "default": "Enter your email and Shopify will send a reset link." },
+    { "type": "text", "id": "recover_label", "label": "Recover button label", "default": "Send reset link" }
+  ]
+}
+{% endschema %}

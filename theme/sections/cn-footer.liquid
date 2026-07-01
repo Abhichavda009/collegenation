@@ -1,0 +1,179 @@
+{{ 'college-nation-footer.css' | asset_url | stylesheet_tag }}
+
+<div class="cn-footer">
+  <div class="cn-footer-inner">
+    <div class="cn-footer-top">
+      <div class="cn-footer-news">
+        <h2 class="cn-footer-news-title">{{ section.settings.newsletter_heading }}</h2>
+        <p class="cn-footer-news-sub">{{ section.settings.newsletter_text }}</p>
+
+        {%- form 'customer', class: 'cn-footer-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input
+            type="email"
+            name="contact[email]"
+            class="cn-footer-input"
+            value="{{ form.email }}"
+            placeholder="{{ section.settings.newsletter_placeholder | escape }}"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            required
+            aria-label="{{ section.settings.newsletter_placeholder | escape }}"
+          >
+          <button type="submit" class="cn-footer-signup">{{ section.settings.newsletter_button }}</button>
+          {%- if form.posted_successfully? -%}
+            <p class="cn-footer-form-message" role="status">Thanks for subscribing.</p>
+          {%- elsif form.errors -%}
+            <p class="cn-footer-form-message" role="alert">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+        {%- endform -%}
+
+        <p class="cn-footer-fine">{{ section.settings.newsletter_disclaimer }}</p>
+      </div>
+
+      {%- render 'cn-footer-menu-column', title: section.settings.collection_title, menu: section.settings.collection_menu -%}
+      {%- render 'cn-footer-menu-column', title: section.settings.university_title, menu: section.settings.university_menu -%}
+      {%- render 'cn-footer-menu-column', title: section.settings.legal_title, menu: section.settings.legal_menu -%}
+      {%- render 'cn-footer-menu-column', title: section.settings.support_title, menu: section.settings.support_menu -%}
+    </div>
+
+    <div class="cn-footer-social-row">
+      {%- if section.settings.instagram_url != blank -%}
+        <a href="{{ section.settings.instagram_url }}" class="cn-footer-soc" aria-label="Instagram">IG</a>
+      {%- endif -%}
+      {%- if section.settings.tiktok_url != blank -%}
+        <a href="{{ section.settings.tiktok_url }}" class="cn-footer-soc" aria-label="TikTok">TT</a>
+      {%- endif -%}
+    </div>
+
+    <div class="cn-footer-bottom">
+      <span class="cn-footer-copy">{{ section.settings.copyright_text }}</span>
+      {%- if section.settings.follow_link != blank -%}
+        <a href="{{ section.settings.follow_link }}" class="cn-footer-shop">
+          <span aria-hidden="true">♡</span>
+          {{ section.settings.follow_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "College Nation footer",
+  "tag": "section",
+  "class": "cn-footer-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "JOIN THE COLLEGE CREW NEWSLETTER"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "For new drops, sales & stuff we don't post anywhere else."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Newsletter button",
+      "default": "Sign Up"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_disclaimer",
+      "label": "Newsletter disclaimer",
+      "default": "By subscribing you agree to the Terms of Use, Privacy Policy and Cookie Preference Policy."
+    },
+    {
+      "type": "text",
+      "id": "collection_title",
+      "label": "Collection column title",
+      "default": "Shop By Collection"
+    },
+    {
+      "type": "link_list",
+      "id": "collection_menu",
+      "label": "Collection menu"
+    },
+    {
+      "type": "text",
+      "id": "university_title",
+      "label": "University column title",
+      "default": "Shop By University"
+    },
+    {
+      "type": "link_list",
+      "id": "university_menu",
+      "label": "University menu"
+    },
+    {
+      "type": "text",
+      "id": "legal_title",
+      "label": "Legal column title",
+      "default": "Legal"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal menu"
+    },
+    {
+      "type": "text",
+      "id": "support_title",
+      "label": "Support column title",
+      "default": "Customer Support"
+    },
+    {
+      "type": "link_list",
+      "id": "support_menu",
+      "label": "Support menu"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram link"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok link"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2026 College Nation. Powered by P3 Media"
+    },
+    {
+      "type": "url",
+      "id": "follow_link",
+      "label": "Follow on Shop link"
+    },
+    {
+      "type": "text",
+      "id": "follow_label",
+      "label": "Follow label",
+      "default": "Follow on shop"
+    }
+  ],
+  "presets": [
+    {
+      "name": "College Nation footer"
+    }
+  ]
+}
+{% endschema %}

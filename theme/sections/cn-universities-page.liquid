@@ -1,0 +1,68 @@
+{{ 'college-nation-pages.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-page">
+  <div class="cn-universities-container">
+    <h1 class="cn-universities-title">{{ section.settings.heading }}</h1>
+    <div class="cn-universities-list">
+      {%- assign conferences = 'ACC,Big Ten,Big 12,Big East,SEC' | split: ',' -%}
+      {%- for conference in conferences -%}
+        {%- assign has_schools = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.conference == conference -%}
+            {%- assign has_schools = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if has_schools -%}
+          <section class="cn-conference">
+            <div class="cn-conference-heading">
+              <span class="cn-conference-mark cn-conf-{{ conference | handleize }}">{{ conference }}</span>
+              <h2>{{ conference }}</h2>
+            </div>
+            <div class="cn-schools">
+              {%- for block in section.blocks -%}
+                {%- if block.settings.conference == conference -%}
+                  <a class="cn-school" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+                    <span class="cn-school-logo" style="background-color: {{ block.settings.primary_color }};">
+                      <span style="color: {{ block.settings.logo_color }};">{{ block.settings.logo_text }}</span>
+                    </span>
+                    <span class="cn-school-name">{{ block.settings.name }}</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CN universities page",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Universities" }
+  ],
+  "blocks": [
+    {
+      "type": "university",
+      "name": "University",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Alabama" },
+        { "type": "text", "id": "logo_text", "label": "Logo text", "default": "A" },
+        { "type": "select", "id": "conference", "label": "Conference", "options": [
+          { "value": "ACC", "label": "ACC" },
+          { "value": "Big Ten", "label": "Big Ten" },
+          { "value": "Big 12", "label": "Big 12" },
+          { "value": "Big East", "label": "Big East" },
+          { "value": "SEC", "label": "SEC" }
+        ], "default": "SEC" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "color", "id": "primary_color", "label": "Primary color", "default": "#0d2343" },
+        { "type": "color", "id": "logo_color", "label": "Logo color", "default": "#ffffff" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "CN universities page" }]
+}
+{% endschema %}

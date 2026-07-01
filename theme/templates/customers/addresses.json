@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "cn-customer-addresses",
+      "settings": {
+        "heading": "Addresses"
+      }
+    }
+  },
+  "order": ["main"]
+}

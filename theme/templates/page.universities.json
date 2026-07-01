@@ -1,0 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cn-universities-page",
+      "blocks": {
+        "uni_clemson": { "type": "university", "settings": { "name": "Clemson", "logo_text": "C", "conference": "ACC", "link": "shopify://collections/all", "primary_color": "#522d80", "logo_color": "#f56600" } },
+        "uni_syracuse": { "type": "university", "settings": { "name": "Syracuse", "logo_text": "S", "conference": "ACC", "link": "shopify://collections/all", "primary_color": "#d44500", "logo_color": "#0b2341" } },
+        "uni_virginia": { "type": "university", "settings": { "name": "UVA", "logo_text": "V", "conference": "ACC", "link": "shopify://collections/all", "primary_color": "#232d4b", "logo_color": "#ffffff" } },
+        "uni_maryland": { "type": "university", "settings": { "name": "Maryland", "logo_text": "M", "conference": "Big Ten", "link": "shopify://collections/all", "primary_color": "#e03a3e", "logo_color": "#ffffff" } },
+        "uni_michigan": { "type": "university", "settings": { "name": "Michigan", "logo_text": "M", "conference": "Big Ten", "link": "shopify://collections/all", "primary_color": "#00274c", "logo_color": "#ffcb05" } },
+        "uni_ucla": { "type": "university", "settings": { "name": "UCLA", "logo_text": "UCLA", "conference": "Big Ten", "link": "shopify://collections/all", "primary_color": "#2774ae", "logo_color": "#ffffff" } },
+        "uni_washington": { "type": "university", "settings": { "name": "Washington", "logo_text": "W", "conference": "Big Ten", "link": "shopify://collections/all", "primary_color": "#4b2e83", "logo_color": "#b7a57a" } },
+        "uni_arizona": { "type": "university", "settings": { "name": "Arizona", "logo_text": "A", "conference": "Big 12", "link": "shopify://collections/all", "primary_color": "#0b2341", "logo_color": "#ffffff" } },
+        "uni_kansas": { "type": "university", "settings": { "name": "Kansas", "logo_text": "KU", "conference": "Big 12", "link": "shopify://collections/all", "primary_color": "#0051ba", "logo_color": "#ffffff" } },
+        "uni_tcu": { "type": "university", "settings": { "name": "TCU", "logo_text": "TCU", "conference": "Big 12", "link": "shopify://collections/all", "primary_color": "#4d1979", "logo_color": "#ffffff" } },
+        "uni_villanova": { "type": "university", "settings": { "name": "Villanova", "logo_text": "V", "conference": "Big East", "link": "shopify://collections/all", "primary_color": "#132247", "logo_color": "#ffffff" } },
+        "uni_alabama": { "type": "university", "settings": { "name": "Alabama", "logo_text": "A", "conference": "SEC", "link": "shopify://collections/all", "primary_color": "#9e1b32", "logo_color": "#ffffff" } },
+        "uni_lsu": { "type": "university", "settings": { "name": "LSU", "logo_text": "LSU", "conference": "SEC", "link": "shopify://collections/all", "primary_color": "#461d7c", "logo_color": "#fdd023" } },
+        "uni_missouri": { "type": "university", "settings": { "name": "Missouri", "logo_text": "M", "conference": "SEC", "link": "shopify://collections/all", "primary_color": "#f1b82d", "logo_color": "#000000" } },
+        "uni_tennessee": { "type": "university", "settings": { "name": "Tennessee", "logo_text": "T", "conference": "SEC", "link": "shopify://collections/all", "primary_color": "#f77f00", "logo_color": "#ffffff" } }
+      },
+      "block_order": [
+        "uni_clemson",
+        "uni_syracuse",
+        "uni_virginia",
+        "uni_maryland",
+        "uni_michigan",
+        "uni_ucla",
+        "uni_washington",
+        "uni_arizona",
+        "uni_kansas",
+        "uni_tcu",
+        "uni_villanova",
+        "uni_alabama",
+        "uni_lsu",
+        "uni_missouri",
+        "uni_tennessee"
+      ],
+      "settings": {
+        "heading": "Universities"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

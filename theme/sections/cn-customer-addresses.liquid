@@ -1,0 +1,95 @@
+{{ 'college-nation-customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'college-nation-customer.js' | asset_url }}" defer></script>
+
+<section class="cn-customer">
+  <div class="cn-customer__shell">
+    <a class="cn-customer__logo" href="{{ routes.root_url }}">COLLEGE NATION</a>
+
+    <div class="cn-account">
+      <nav class="cn-account__side" aria-label="Account navigation">
+        <a href="{{ routes.account_url }}">Orders</a>
+        <span>Addresses</span>
+        <a href="{{ routes.account_logout_url }}">Logout</a>
+      </nav>
+
+      <main>
+        <div class="cn-account__header">
+          <div>
+            <h1>{{ section.settings.heading }}</h1>
+            <p class="cn-customer__sub">Manage shipping addresses for faster checkout.</p>
+          </div>
+        </div>
+
+        <section class="cn-account__panel">
+          <h2>Add address</h2>
+          {%- form 'customer_address', customer.new_address, class: 'cn-customer__form' -%}
+            <label class="cn-customer__field"><span>First name</span><input name="address[first_name]" autocomplete="given-name"></label>
+            <label class="cn-customer__field"><span>Last name</span><input name="address[last_name]" autocomplete="family-name"></label>
+            <label class="cn-customer__field"><span>Company</span><input name="address[company]" autocomplete="organization"></label>
+            <label class="cn-customer__field"><span>Address 1</span><input name="address[address1]" autocomplete="address-line1"></label>
+            <label class="cn-customer__field"><span>Address 2</span><input name="address[address2]" autocomplete="address-line2"></label>
+            <label class="cn-customer__field"><span>City</span><input name="address[city]" autocomplete="address-level2"></label>
+            <label class="cn-customer__field"><span>Country</span><input name="address[country]" autocomplete="country"></label>
+            <label class="cn-customer__field"><span>Province</span><input name="address[province]" autocomplete="address-level1"></label>
+            <label class="cn-customer__field"><span>ZIP</span><input name="address[zip]" autocomplete="postal-code"></label>
+            <label class="cn-customer__field"><span>Phone</span><input name="address[phone]" autocomplete="tel"></label>
+            <label><input type="checkbox" name="address[default]" value="1"> Set as default address</label>
+            <button class="cn-customer__button" type="submit">Add address</button>
+          {%- endform -%}
+        </section>
+
+        <div class="cn-addresses">
+          {%- for address in customer.addresses -%}
+            <article class="cn-address">
+              {%- if address == customer.default_address -%}
+                <strong>Default</strong>
+              {%- endif -%}
+              <div>{{ address | format_address }}</div>
+              <div class="cn-address__actions">
+                <button
+                  class="cn-customer__button cn-customer__button--secondary"
+                  type="button"
+                  data-cn-address-delete
+                  data-target="{{ address.url }}"
+                  data-confirm-message="Delete this address?"
+                >
+                  Delete
+                </button>
+              </div>
+
+              <details>
+                <summary class="cn-customer__text-link">Edit address</summary>
+                {%- form 'customer_address', address, class: 'cn-customer__form' -%}
+                  <label class="cn-customer__field"><span>First name</span><input name="address[first_name]" value="{{ address.first_name }}"></label>
+                  <label class="cn-customer__field"><span>Last name</span><input name="address[last_name]" value="{{ address.last_name }}"></label>
+                  <label class="cn-customer__field"><span>Address 1</span><input name="address[address1]" value="{{ address.address1 }}"></label>
+                  <label class="cn-customer__field"><span>Address 2</span><input name="address[address2]" value="{{ address.address2 }}"></label>
+                  <label class="cn-customer__field"><span>City</span><input name="address[city]" value="{{ address.city }}"></label>
+                  <label class="cn-customer__field"><span>Country</span><input name="address[country]" value="{{ address.country }}"></label>
+                  <label class="cn-customer__field"><span>Province</span><input name="address[province]" value="{{ address.province }}"></label>
+                  <label class="cn-customer__field"><span>ZIP</span><input name="address[zip]" value="{{ address.zip }}"></label>
+                  <label class="cn-customer__field"><span>Phone</span><input name="address[phone]" value="{{ address.phone }}"></label>
+                  <label><input type="checkbox" name="address[default]" value="1" {% if address == customer.default_address %}checked{% endif %}> Set as default address</label>
+                  <button class="cn-customer__button" type="submit">Update address</button>
+                {%- endform -%}
+              </details>
+            </article>
+          {%- else -%}
+            <article class="cn-address">
+              <p class="cn-customer__muted">No addresses added.</p>
+            </article>
+          {%- endfor -%}
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CollegeNation addresses",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Addresses" }
+  ]
+}
+{% endschema %}

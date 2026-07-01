@@ -1,0 +1,144 @@
+{{ 'college-nation-cart.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'college-nation-cart.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign free_shipping_target = section.settings.free_shipping_threshold | times: 100
+  assign free_shipping_left = free_shipping_target | minus: cart.total_price
+  assign progress = 100
+  if free_shipping_target > 0 and cart.total_price < free_shipping_target
+    assign progress = cart.total_price | times: 100 | divided_by: free_shipping_target
+  endif
+-%}
+
+<section class="cn-cart" data-cn-cart-section data-section-id="{{ section.id }}">
+  <div class="cn-cart__inner">
+    <nav class="cn-cart__crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span>|</span>
+      <span>Your cart</span>
+    </nav>
+
+    {%- if cart.empty? -%}
+      <div class="cn-cart__empty">
+        <h1>{{ section.settings.empty_heading }}</h1>
+        <p>{{ section.settings.empty_text }}</p>
+        <a href="{{ section.settings.empty_button_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.empty_button_label }}
+        </a>
+      </div>
+    {%- else -%}
+      <h1 class="cn-cart__title">Your cart ({{ cart.item_count }})</h1>
+
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form" data-cn-cart-form>
+        <div class="cn-cart__layout">
+          <div class="cn-cart__items">
+            {%- for item in cart.items -%}
+              <article class="cn-cart__row" data-cn-cart-line="{{ forloop.index }}">
+                <button class="cn-cart__remove" type="button" data-cn-cart-remove aria-label="Remove {{ item.title | escape }}">
+                  &times;
+                </button>
+
+                <a class="cn-cart__image" href="{{ item.url }}">
+                  {%- if item.image -%}
+                    {%- assign cart_image_alt = item.image.alt | default: item.product.title -%}
+                    {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: cart_image_alt }}
+                  {%- endif -%}
+                </a>
+
+                <div class="cn-cart__product">
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <span class="cn-cart__meta">
+                      {%- for option in item.options_with_values -%}
+                        {{ option.value }}{% unless forloop.last %}, {% endunless %}
+                      {%- endfor -%}
+                    </span>
+                  {%- endunless -%}
+                  <strong class="cn-cart__price">{{ item.final_price | money }}</strong>
+                </div>
+
+                <div class="cn-cart__qty">
+                  <button type="button" data-cn-cart-qty="-1" aria-label="Decrease quantity">-</button>
+                  <input
+                    type="number"
+                    name="updates[]"
+                    min="0"
+                    value="{{ item.quantity }}"
+                    aria-label="Quantity for {{ item.title | escape }}"
+                    data-cn-cart-qty-input
+                  >
+                  <button type="button" data-cn-cart-qty="1" aria-label="Increase quantity">+</button>
+                </div>
+
+                <strong class="cn-cart__line-total">{{ item.final_line_price | money }}</strong>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          <aside class="cn-cart__summary" aria-label="Cart summary">
+            {%- if section.settings.show_free_shipping -%}
+              <div class="cn-cart__free">
+                <span>
+                  {%- if free_shipping_left > 0 -%}
+                    Spend {{ free_shipping_left | money }} more to reach free shipping!
+                  {%- else -%}
+                    You have free shipping!
+                  {%- endif -%}
+                </span>
+                <div class="cn-cart__meter" aria-hidden="true"><i style="width: {{ progress }}%;"></i></div>
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.show_cart_note -%}
+              <details class="cn-cart__accordion">
+                <summary>Order note <span>+</span></summary>
+                <textarea name="note" form="cart-form" placeholder="Add delivery instructions or campus details">{{ cart.note }}</textarea>
+              </details>
+            {%- endif -%}
+
+            <details class="cn-cart__accordion">
+              <summary>Estimate Shipping <span>+</span></summary>
+              <div class="cn-cart__tax">Shipping rates are calculated during Shopify Checkout.</div>
+            </details>
+
+            <div class="cn-cart__estimated">
+              <span>Estimated total</span>
+              <strong>{{ cart.total_price | money_with_currency }}</strong>
+            </div>
+            <p class="cn-cart__tax">Taxes and shipping calculated at checkout</p>
+
+            {%- if section.settings.shipping_link != blank -%}
+              <a class="cn-cart__shipping-link" href="{{ section.settings.shipping_link }}">Learn more about Shipping Policies</a>
+            {%- endif -%}
+
+            <button class="cn-cart__checkout" type="submit" name="checkout">Check Out</button>
+
+            {%- if additional_checkout_buttons and section.settings.show_dynamic_checkout -%}
+              <div class="cn-cart__additional">{{ content_for_additional_checkout_buttons }}</div>
+            {%- endif -%}
+          </aside>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CollegeNation cart",
+  "settings": [
+    { "type": "checkbox", "id": "show_free_shipping", "label": "Show free shipping progress", "default": true },
+    { "type": "range", "id": "free_shipping_threshold", "label": "Free shipping threshold", "min": 0, "max": 250, "step": 5, "default": 45 },
+    { "type": "checkbox", "id": "show_cart_note", "label": "Show cart note", "default": true },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show accelerated checkout buttons", "default": true },
+    { "type": "url", "id": "shipping_link", "label": "Shipping policy link" },
+    { "type": "text", "id": "empty_heading", "label": "Empty cart heading", "default": "Your cart is empty" },
+    { "type": "text", "id": "empty_text", "label": "Empty cart text", "default": "Add your favorite campus gear and come back here to checkout." },
+    { "type": "text", "id": "empty_button_label", "label": "Empty cart button label", "default": "Shop now" },
+    { "type": "url", "id": "empty_button_link", "label": "Empty cart button link" }
+  ],
+  "presets": [
+    { "name": "CollegeNation cart" }
+  ]
+}
+{% endschema %}
