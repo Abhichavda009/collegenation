@@ -718,3 +718,118 @@
     flex-direction: column;
   }
 }
+
+/* ============================================================
+   Product page additions: delivery, assurance, payment, accordions
+   ============================================================ */
+
+.cn-product-delivery {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  color: #2a3441;
+  font-size: 14px;
+}
+.cn-product-delivery-icon {
+  font-size: 18px;
+}
+
+.cn-product-assurance {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 20px;
+  border: 1px solid #e4e7ea;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+.cn-product-assurance-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2a3441;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.cn-product-assurance-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.cn-product-payment {
+  margin-top: 20px;
+  text-align: center;
+}
+.cn-product-payment-heading {
+  display: block;
+  margin-bottom: 10px;
+  color: #9aa3af;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.cn-product-pay-methods {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.cn-product-pay-chip {
+  padding: 5px 12px;
+  border: 1px solid #e4e7ea;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0d2343;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cn-product-accordions {
+  margin-top: 24px;
+  border-top: 1px solid #e4e7ea;
+}
+.cn-product-accordion {
+  border-bottom: 1px solid #e4e7ea;
+}
+.cn-product-accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 2px;
+  cursor: pointer;
+  list-style: none;
+  color: #0d2343;
+  font-size: 15px;
+  font-weight: 700;
+}
+.cn-product-accordion-summary::-webkit-details-marker {
+  display: none;
+}
+.cn-product-accordion-icon {
+  font-size: 20px;
+  font-weight: 400;
+  transition: transform 0.2s ease;
+}
+.cn-product-accordion[open] .cn-product-accordion-icon {
+  transform: rotate(45deg);
+}
+.cn-product-accordion-body {
+  padding: 0 2px 18px;
+  color: #4a5568;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.cn-product-accordion-body p {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 560px) {
+  .cn-product-assurance {
+    grid-template-columns: 1fr;
+  }
+}

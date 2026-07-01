@@ -11,10 +11,27 @@
   "sections": {
     "main": {
       "type": "cn-main-product",
+      "blocks": {
+        "assur_ship": { "type": "assurance", "settings": { "icon": "🚚", "text": "Free shipping over ₹45" } },
+        "assur_licensed": { "type": "assurance", "settings": { "icon": "🎓", "text": "Officially licensed" } },
+        "assur_returns": { "type": "assurance", "settings": { "icon": "🔁", "text": "30-day easy returns" } },
+        "assur_secure": { "type": "assurance", "settings": { "icon": "🔒", "text": "Secure checkout" } },
+        "acc_fit": { "type": "accordion", "settings": { "title": "Size & Fit", "content": "<p>True to size. If you're between sizes, we recommend sizing up. See the size chart for exact measurements.</p>", "open_by_default": false } },
+        "acc_shipping": { "type": "accordion", "settings": { "title": "Shipping & Returns", "content": "<p>Free shipping on orders over ₹45. Orders ship within 1-2 business days. Enjoy easy 30-day returns on unworn items with original tags.</p>", "open_by_default": false } },
+        "acc_care": { "type": "accordion", "settings": { "title": "Care Instructions", "content": "<p>Machine wash cold, inside out. Tumble dry low. Do not iron directly on prints.</p>", "open_by_default": false } }
+      },
+      "block_order": ["assur_ship", "assur_licensed", "assur_returns", "assur_secure", "acc_fit", "acc_shipping", "acc_care"],
       "settings": {
         "add_to_cart_label": "Add To Cart",
         "sold_out_label": "Sold Out",
         "show_dynamic_checkout": true,
+        "show_delivery": true,
+        "delivery_prefix": "Estimated delivery:",
+        "delivery_min_days": 3,
+        "delivery_max_days": 7,
+        "show_payment": true,
+        "payment_heading": "Guaranteed Safe Checkout",
+        "payment_methods": "Visa, Mastercard, UPI, PayPal, Amex, RuPay",
         "shipping_label": "Shipping Details",
         "shipping_link": "",
         "specifications_heading": "Specifications"

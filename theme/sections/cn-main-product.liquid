@@ -117,6 +117,17 @@
           <p class="cn-product-stock is-out">Out of stock</p>
         {%- endif -%}
 
+        {%- if section.settings.show_delivery -%}
+          {%- assign cn_now = 'now' | date: '%s' | times: 1 -%}
+          {%- assign cn_min = section.settings.delivery_min_days | times: 86400 | plus: cn_now -%}
+          {%- assign cn_max = section.settings.delivery_max_days | times: 86400 | plus: cn_now -%}
+          <p class="cn-product-delivery">
+            <span class="cn-product-delivery-icon" aria-hidden="true">&#128666;</span>
+            {{ section.settings.delivery_prefix }}
+            <strong>{{ cn_min | date: '%b %-d' }} &ndash; {{ cn_max | date: '%b %-d' }}</strong>
+          </p>
+        {%- endif -%}
+
         {%- form 'product', product, class: 'cn-product-form' -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}" data-cn-variant-select>
 
@@ -166,6 +177,33 @@
           {%- endif -%}
         {%- endform -%}
 
+        {%- assign assurance_blocks = section.blocks | where: 'type', 'assurance' -%}
+        {%- if assurance_blocks.size > 0 -%}
+          <ul class="cn-product-assurance">
+            {%- for block in assurance_blocks -%}
+              <li class="cn-product-assurance-item" {{ block.shopify_attributes }}>
+                <span class="cn-product-assurance-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+                <span>{{ block.settings.text }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.show_payment -%}
+          <div class="cn-product-payment">
+            <span class="cn-product-payment-heading">{{ section.settings.payment_heading }}</span>
+            <div class="cn-product-pay-methods">
+              {%- assign pay_methods = section.settings.payment_methods | split: ',' -%}
+              {%- for method in pay_methods -%}
+                {%- assign method_clean = method | strip -%}
+                {%- if method_clean != blank -%}
+                  <span class="cn-product-pay-chip">{{ method_clean }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
         <div class="cn-product-description">
           {{ product.description }}
           {%- if product.metafields.custom.specifications != blank -%}
@@ -173,6 +211,21 @@
             {{ product.metafields.custom.specifications | metafield_tag }}
           {%- endif -%}
         </div>
+
+        {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
+        {%- if accordion_blocks.size > 0 -%}
+          <div class="cn-product-accordions">
+            {%- for block in accordion_blocks -%}
+              <details class="cn-product-accordion"{% if block.settings.open_by_default %} open{% endif %} {{ block.shopify_attributes }}>
+                <summary class="cn-product-accordion-summary">
+                  {{ block.settings.title }}
+                  <span class="cn-product-accordion-icon" aria-hidden="true">+</span>
+                </summary>
+                <div class="cn-product-accordion-body">{{ block.settings.content }}</div>
+              </details>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
 
         <div class="cn-product-extra">
           <a href="#share">Share</a>
@@ -206,9 +259,38 @@
     { "type": "text", "id": "add_to_cart_label", "label": "Add to cart label", "default": "Add To Cart" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold Out" },
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout", "default": true },
+    { "type": "header", "content": "Delivery estimate" },
+    { "type": "checkbox", "id": "show_delivery", "label": "Show delivery estimate", "default": true },
+    { "type": "text", "id": "delivery_prefix", "label": "Delivery prefix", "default": "Estimated delivery:" },
+    { "type": "range", "id": "delivery_min_days", "label": "Min days", "min": 1, "max": 21, "step": 1, "default": 3 },
+    { "type": "range", "id": "delivery_max_days", "label": "Max days", "min": 1, "max": 30, "step": 1, "default": 7 },
+    { "type": "header", "content": "Payment reassurance" },
+    { "type": "checkbox", "id": "show_payment", "label": "Show payment row", "default": true },
+    { "type": "text", "id": "payment_heading", "label": "Payment heading", "default": "Guaranteed Safe Checkout" },
+    { "type": "text", "id": "payment_methods", "label": "Payment methods (comma separated)", "default": "Visa, Mastercard, UPI, PayPal, Amex, RuPay" },
+    { "type": "header", "content": "Description & links" },
     { "type": "text", "id": "shipping_label", "label": "Shipping link label", "default": "Shipping Details" },
     { "type": "url", "id": "shipping_link", "label": "Shipping link" },
     { "type": "text", "id": "specifications_heading", "label": "Specifications heading", "default": "Specifications" }
+  ],
+  "blocks": [
+    {
+      "type": "assurance",
+      "name": "Assurance badge",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🚚" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free shipping over ₹45" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shipping & Returns" },
+        { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Add your details here.</p>" },
+        { "type": "checkbox", "id": "open_by_default", "label": "Open by default", "default": false }
+      ]
+    }
   ],
   "presets": [{ "name": "CN main product" }]
 }
