@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "cn-customer-order",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

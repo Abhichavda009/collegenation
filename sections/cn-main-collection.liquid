@@ -1,0 +1,198 @@
+{{ 'college-nation-commerce.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign products_per_page = section.settings.products_per_page
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+-%}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | append: routes.root_url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Collections",
+        "item": {{ shop.url | append: routes.collections_url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ collection.title | json }},
+        "item": {{ shop.url | append: collection.url | json }}
+      }
+    ]
+  }
+</script>
+
+<section class="cn-commerce" data-cn-collection>
+  <div class="cn-commerce-inner">
+    <nav class="cn-commerce-crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="cn-commerce-sep" aria-hidden="true">|</span>
+      <span>Collection</span>
+      <span class="cn-commerce-sep" aria-hidden="true">|</span>
+      <span class="cn-commerce-crumb-active">{{ collection.title }}</span>
+    </nav>
+
+    <h1 class="cn-collection-title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="cn-collection-description">{{ collection.description }}</div>
+    {%- endif -%}
+    {%- if section.settings.show_collection_image and collection.image -%}
+      <div class="cn-collection-image">
+        {{ collection.image | image_url: width: 1800 | image_tag: loading: 'lazy', sizes: '100vw', widths: '800, 1200, 1800', alt: collection.title }}
+      </div>
+    {%- endif -%}
+
+    <form id="CollectionFiltersForm-{{ section.id }}" class="cn-collection-toolbar">
+      <div class="cn-collection-toolbar-left">
+        <span class="cn-filter-pill">Filter</span>
+        <span class="cn-product-count">{{ collection.products_count }} products</span>
+        {%- if collection.filters.size > 0 -%}
+          <a href="{{ collection.url }}" class="cn-product-count">Clear all</a>
+        {%- endif -%}
+      </div>
+
+      <div class="cn-collection-toolbar-right">
+        {%- if section.settings.enable_sorting -%}
+          <label class="cn-sort-label">
+            Sort by:
+            <select name="sort_by" onchange="this.form.submit()">
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+              {%- endfor -%}
+            </select>
+          </label>
+        {%- endif -%}
+        <div class="cn-view-toggle" aria-label="View as">
+          <button class="is-active" type="button" aria-label="Grid view" data-cn-view-grid>▦</button>
+          <button type="button" aria-label="List view" data-cn-view-list>☰</button>
+        </div>
+      </div>
+    </form>
+
+    {%- if collection.filters.size > 0 -%}
+      <div class="cn-active-filters">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <a href="{{ value.url_to_remove }}">{{ value.label }} <span aria-hidden="true">×</span></a>
+          {%- endfor -%}
+          {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+              <a href="{{ filter.url_to_remove }}">
+                {{ filter.min_value.value | default: 0 | money }} - {{ filter.max_value.value | default: filter.range_max | money }}
+                <span aria-hidden="true">×</span>
+              </a>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="cn-collection-body">
+      {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}
+        <aside class="cn-filters">
+          <form id="CollectionSidebarFilters-{{ section.id }}" method="get">
+            {%- if sort_by != blank -%}
+              <input type="hidden" name="sort_by" value="{{ sort_by }}">
+            {%- endif -%}
+            {%- for filter in collection.filters -%}
+              <details class="cn-filter-group" {% if forloop.index <= 2 %}open{% endif %}>
+                <summary class="cn-filter-summary">
+                  <span>{{ filter.label }}</span>
+                  <span aria-hidden="true">+</span>
+                </summary>
+                {%- case filter.type -%}
+                  {%- when 'list' -%}
+                    <ul class="cn-filter-options">
+                      {%- for value in filter.values -%}
+                        <li>
+                          <label>
+                            <input
+                              type="checkbox"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                              onchange="this.form.submit()"
+                            >
+                            <span>{{ value.label }}</span>
+                            <span class="cn-filter-count">{{ value.count }}</span>
+                          </label>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- when 'price_range' -%}
+                    <div class="cn-filter-options">
+                      <div class="cn-price-range">
+                        <input
+                          name="{{ filter.min_value.param_name }}"
+                          type="number"
+                          placeholder="Min"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | replace: ',', '' }}{% endif %}"
+                        >
+                        <span>-</span>
+                        <input
+                          name="{{ filter.max_value.param_name }}"
+                          type="number"
+                          placeholder="Max"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | replace: ',', '' }}{% endif %}"
+                        >
+                      </div>
+                      <button class="cn-filter-apply" type="submit">Apply</button>
+                    </div>
+                {%- endcase -%}
+              </details>
+            {%- endfor -%}
+          </form>
+        </aside>
+      {%- endif -%}
+
+      <div class="cn-collection-results">
+        {%- paginate collection.products by products_per_page -%}
+          {%- if collection.products.size == 0 -%}
+            <div class="cn-empty-state">No products match your filters.</div>
+          {%- else -%}
+            <div class="cn-product-grid" data-cn-product-grid>
+              {%- for product in collection.products -%}
+                {%- render 'cn-product-card', product: product -%}
+              {%- endfor -%}
+            </div>
+            {%- if paginate.pages > 1 -%}
+              <nav class="cn-pagination" aria-label="Pagination">
+                {{ paginate | default_pagination }}
+              </nav>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'college-nation-commerce.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "CN main collection",
+  "settings": [
+    { "type": "checkbox", "id": "show_collection_image", "label": "Show collection image", "default": true },
+    { "type": "checkbox", "id": "enable_filtering", "label": "Enable filtering", "default": true },
+    { "type": "checkbox", "id": "enable_sorting", "label": "Enable sorting", "default": true },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ],
+  "presets": [{ "name": "CN main collection" }]
+}
+{% endschema %}

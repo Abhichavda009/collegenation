@@ -1,0 +1,593 @@
+.cn-page {
+  width: 100%;
+  background: #ffffff;
+  color: #07182f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.cn-page *,
+.cn-page *::before,
+.cn-page *::after {
+  box-sizing: border-box;
+}
+
+.cn-page-container {
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: var(--cn-page-padding-top, 22px) 40px var(--cn-page-padding-bottom, 72px);
+}
+
+.cn-page-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #9aa3af;
+  font-size: 14px;
+}
+
+.cn-page-crumbs a {
+  color: #1a202c;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cn-page-crumbs a:hover {
+  color: #e8453c;
+}
+
+.cn-page-sep {
+  color: #cbd2da;
+}
+
+.cn-page-title {
+  margin: 16px 0 12px;
+  color: #111418;
+  text-align: center;
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.cn-page-subtitle {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  color: #6b7280;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.cn-contact-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 56px;
+  align-items: start;
+}
+
+.cn-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 28px;
+}
+
+.cn-contact-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.cn-contact-field-full {
+  grid-column: 1 / -1;
+}
+
+.cn-contact-field label {
+  margin-bottom: 8px;
+  color: #1a202c;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cn-contact-required {
+  color: #e8453c;
+}
+
+.cn-contact-field input,
+.cn-contact-field textarea {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: #efeff0;
+  padding: 13px 16px;
+  color: #1a202c;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cn-contact-field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.cn-contact-field input:focus,
+.cn-contact-field textarea:focus {
+  background: #ffffff;
+  border-color: #0d2343;
+}
+
+.cn-contact-submit {
+  margin-top: 26px;
+  border: none;
+  border-radius: 6px;
+  background: #111418;
+  color: #ffffff;
+  padding: 15px 34px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cn-contact-message {
+  margin-bottom: 22px;
+  border-radius: 6px;
+  padding: 14px 18px;
+  font-size: 14px;
+}
+
+.cn-contact-message-success {
+  border: 1px solid #b7e3c8;
+  background: #e9f7ef;
+  color: #1c7c43;
+}
+
+.cn-contact-message-error {
+  border: 1px solid #f0b7b7;
+  background: #fff0f0;
+  color: #9f1d1d;
+}
+
+.cn-contact-help {
+  height: 100%;
+  border-left: 1px solid #e8e8e8;
+  padding-left: 56px;
+}
+
+.cn-contact-help-title {
+  margin: 0 0 14px;
+  color: #111418;
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.cn-contact-help-text {
+  margin: 0 0 30px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.cn-contact-help-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.cn-contact-help-icon {
+  margin-top: 2px;
+  color: #111418;
+  font-size: 18px;
+}
+
+.cn-contact-help-detail strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111418;
+  font-size: 16px;
+}
+
+.cn-contact-help-detail a {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.cn-faq-content {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.cn-faq-lead-title {
+  margin: 0 0 14px;
+  color: #4a5568;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cn-faq-lead-text {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.cn-faq-section {
+  margin-top: 48px;
+}
+
+.cn-faq-section-title {
+  margin: 0 0 12px;
+  color: #111418;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.cn-faq-item {
+  border-bottom: 1px solid #ececec;
+}
+
+.cn-faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: none;
+  background: none;
+  padding: 20px 2px;
+  color: #111418;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cn-faq-icon {
+  flex-shrink: 0;
+  color: #111418;
+  font-size: 18px;
+}
+
+.cn-faq-answer {
+  max-width: 720px;
+  padding: 0 2px 22px;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.cn-faq-item:not(.is-open) .cn-faq-answer {
+  display: none;
+}
+
+.cn-universities-container {
+  width: min(100%, 560px);
+  margin: 0 auto;
+  padding: 34px 24px 92px;
+}
+
+.cn-universities-title {
+  margin: 0 0 28px;
+  color: #061933;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.cn-universities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.cn-conference {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cn-conference-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 18px;
+}
+
+.cn-conference-heading h2 {
+  margin: 0;
+  color: #061933;
+  font-size: 17px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.cn-conference-mark {
+  width: 24px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  color: #316ecb;
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.cn-conf-big-ten {
+  color: #0e6da8;
+  font-size: 13px;
+  font-style: normal;
+}
+
+.cn-conf-big-12 {
+  color: #d64b68;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.cn-conf-big-east {
+  color: #d11f30;
+  font-size: 5px;
+}
+
+.cn-conf-sec {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #485d79;
+  border-radius: 50%;
+  color: #485d79;
+  justify-content: center;
+  font-size: 10px;
+  font-style: normal;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.cn-schools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px 28px;
+}
+
+.cn-school {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #07182f;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cn-school-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(13, 35, 67, 0.08);
+}
+
+.cn-school-logo span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.cn-school-name {
+  color: #07182f;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.cn-university-detail {
+  width: 100%;
+  max-width: 1636px;
+  margin: 0 auto;
+  padding: 50px 40px 88px;
+}
+
+.cn-university-hero {
+  min-height: 196px;
+  border-radius: 8px;
+  background: #ded8d8;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 34px 62px;
+}
+
+.cn-university-hero h1 {
+  margin: 0;
+  color: #0a0a0a;
+  font-size: 60px;
+  line-height: 0.95;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.cn-university-hero p {
+  margin: 8px 0 0;
+  color: #ef3340;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 64px;
+  line-height: 0.9;
+}
+
+.cn-university-shortcuts {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 66px;
+  margin: 20px 0 54px;
+  flex-wrap: wrap;
+}
+
+.cn-university-shortcut {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #111111;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cn-university-shortcut-logo,
+.cn-university-shortcut-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cn-university-shortcut-logo span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.cn-university-shortcut-img img,
+.cn-university-product-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cn-university-tiles {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 8px;
+}
+
+.cn-university-promo,
+.cn-university-product-tile {
+  min-height: 360px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ded8d8;
+  text-decoration: none;
+}
+
+.cn-university-promo {
+  display: flex;
+  align-items: flex-end;
+  padding: 42px;
+}
+
+.cn-university-promo h2 {
+  margin: 0;
+  color: #0a0a0a;
+  font-size: 78px;
+  line-height: 0.92;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.cn-university-promo h2 span {
+  display: block;
+}
+
+.cn-university-promo h2 span:nth-child(2) {
+  color: #ef3340;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 82px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.cn-static-content {
+  max-width: 860px;
+  margin: 34px auto 0;
+  color: #4a5568;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.cn-static-content h2,
+.cn-static-content h3 {
+  color: #111418;
+}
+
+@media (max-width: 980px) {
+  .cn-university-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .cn-university-hero h1,
+  .cn-university-promo h2 {
+    font-size: 44px;
+  }
+
+  .cn-university-hero p,
+  .cn-university-promo h2 span:nth-child(2) {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cn-contact-body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .cn-contact-help {
+    border-top: 1px solid #e8e8e8;
+    border-left: none;
+    padding-top: 36px;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .cn-page-container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .cn-page-title {
+    font-size: 30px;
+  }
+
+  .cn-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cn-faq-section-title {
+    font-size: 24px;
+  }
+
+  .cn-universities-container {
+    width: 100%;
+    padding: 28px 18px 72px;
+  }
+
+  .cn-schools {
+    gap: 16px 22px;
+  }
+
+  .cn-university-detail {
+    padding: 28px 16px 64px;
+  }
+
+  .cn-university-hero {
+    padding: 28px 24px;
+  }
+
+  .cn-university-shortcuts {
+    gap: 24px;
+  }
+}

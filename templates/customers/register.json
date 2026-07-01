@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "cn-customer-register",
+      "settings": {
+        "heading": "Create account",
+        "subheading": "Save your details and view order history.",
+        "button_label": "Create account"
+      }
+    }
+  },
+  "order": ["main"]
+}

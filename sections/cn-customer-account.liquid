@@ -1,0 +1,58 @@
+{{ 'college-nation-customer.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-customer">
+  <div class="cn-customer__shell">
+    <a class="cn-customer__logo" href="{{ routes.root_url }}">COLLEGE NATION</a>
+
+    <div class="cn-account">
+      <nav class="cn-account__side" aria-label="Account navigation">
+        <span>Orders</span>
+        <a href="{{ routes.account_addresses_url }}">Addresses</a>
+        <a href="{{ routes.account_logout_url }}">Logout</a>
+      </nav>
+
+      <main>
+        <div class="cn-account__header">
+          <div>
+            <h1>{{ section.settings.heading }}</h1>
+            <p class="cn-customer__sub">{{ customer.email }}</p>
+          </div>
+          <a class="cn-customer__button cn-customer__button--secondary" href="{{ routes.all_products_collection_url }}">Shop now</a>
+        </div>
+
+        <section class="cn-account__panel">
+          <h2>Order history</h2>
+          {%- paginate customer.orders by 20 -%}
+            {%- if customer.orders.size > 0 -%}
+              <div class="cn-account__grid">
+                {%- for order in customer.orders -%}
+                  <div class="cn-order-row">
+                    <a href="{{ order.customer_url }}">{{ order.name }}</a>
+                    <span>{{ order.created_at | date: "%b %d, %Y" }}</span>
+                    <span>{{ order.financial_status_label }}</span>
+                    <strong>{{ order.total_price | money }}</strong>
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              {%- if paginate.pages > 1 -%}
+                {{ paginate | default_pagination }}
+              {%- endif -%}
+            {%- else -%}
+              <p class="cn-customer__muted">You have not placed any orders yet.</p>
+            {%- endif -%}
+          {%- endpaginate -%}
+        </section>
+      </main>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CollegeNation account",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Welcome" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,486 @@
+.cn-global-header {
+  width: 100%;
+  background-color: #ffffff;
+  color: #1a202c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.cn-global-header *,
+.cn-global-header *::before,
+.cn-global-header *::after {
+  box-sizing: border-box;
+}
+
+.cn-global-header .cn-container {
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cn-top-banner {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 11px 0;
+}
+
+.cn-banner-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin: 0 auto;
+}
+
+.cn-social-icon {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.cn-sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(13, 35, 67, 0.06);
+}
+
+.cn-mid-section {
+  background-color: #ffffff;
+  padding: 22px 0;
+}
+
+.cn-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.cn-logo-svg,
+.cn-logo-image {
+  height: 74px;
+  width: auto;
+  display: block;
+}
+
+.cn-logo-arc-text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  fill: #0d2343;
+}
+
+.cn-logo-monogram {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 700;
+  fill: #ffffff;
+}
+
+.cn-search-combo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(44vw, 440px);
+  height: 42px;
+  border: 1px solid #dcdcdc;
+  border-radius: 25px;
+  background-color: #ffffff;
+}
+
+.cn-select-box {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #e2e2e2;
+  padding-left: 8px;
+}
+
+.cn-university-trigger {
+  border: none;
+  background: #ffffff;
+  color: #4a5568;
+  font-size: 13.5px;
+  padding: 0 16px 0 12px;
+  height: 100%;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 150px;
+}
+
+.cn-select-arrow {
+  font-size: 13px;
+  color: #4a5568;
+}
+
+.cn-input-box {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 0 25px 25px 0;
+}
+
+.cn-input-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #ffffff;
+  color: #2d3748;
+  padding: 0 45px 0 16px;
+  font-size: 14px;
+  outline: none;
+  border-radius: 0 25px 25px 0;
+}
+
+.cn-input-box input::placeholder {
+  color: #a0aec0;
+}
+
+.cn-search-button {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #718096;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.cn-user-bar {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.cn-account-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cn-bag-wrapper {
+  position: relative;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background-color: #f0f2f5;
+  color: #4a5568;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.cn-bag-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #c93628;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.cn-university-menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: min(900px, calc(100vw - 32px));
+  min-height: 144px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(13, 35, 67, 0.16);
+  z-index: 60;
+  overflow: hidden;
+}
+
+.cn-conference-tabs {
+  min-height: 64px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #e6e8ec;
+  overflow-x: auto;
+}
+
+.cn-conference-tabs button {
+  position: relative;
+  min-width: 118px;
+  border: none;
+  background: transparent;
+  color: #07182f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cn-conference-tabs button.is-active::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: #d33a2c;
+}
+
+.cn-conf-mark {
+  color: #316ecb;
+  font-size: 8px;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.cn-conf-big-ten {
+  color: #0e6da8;
+  font-size: 13px;
+  letter-spacing: -1px;
+  font-style: normal;
+}
+
+.cn-conf-big-12,
+.cn-conf-big-east {
+  color: #d64b68;
+  font-size: 7px;
+}
+
+.cn-conf-sec {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #485d79;
+  border-radius: 50%;
+  color: #485d79;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-style: normal;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.cn-conference-schools {
+  min-height: 80px;
+  padding: 22px 38px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.cn-conference-schools.is-hidden {
+  display: none;
+}
+
+.cn-conference-school {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #07182f;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cn-conference-school-logo,
+.cn-node-circle {
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cn-conference-school-logo {
+  width: 34px;
+  height: 34px;
+}
+
+.cn-conference-school-logo span,
+.cn-node-circle span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cn-navbar-links {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 0;
+  background-color: #ffffff;
+}
+
+.cn-nav-ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+}
+
+.cn-nav-ul a {
+  text-decoration: none;
+  color: #4a5568;
+  font-size: 14.5px;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.cn-nav-ul a:hover,
+.cn-nav-ul a.is-active {
+  color: #0d2343;
+  border-bottom-color: #cf242a;
+}
+
+.cn-nav-store {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cn-uni-tray {
+  background-color: #f4f6f8;
+  padding: 16px 0;
+}
+
+.cn-uni-scroll {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.cn-uni-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  flex: 0 0 auto;
+}
+
+.cn-node-circle {
+  width: 38px;
+  height: 38px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.cn-node-circle span {
+  font-size: 12px;
+}
+
+.cn-node-name {
+  font-size: 11px;
+  color: #718096;
+  font-weight: 400;
+}
+
+.cn-view-all-box {
+  border-left: 1px solid #dcdcdc;
+  padding-left: 20px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.cn-view-all-anchor {
+  font-size: 13px;
+  color: #4a5568;
+  text-decoration: underline;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+  .cn-mid-section .cn-container {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .cn-search-combo {
+    order: 3;
+    width: 100%;
+  }
+
+  .cn-navbar-links .cn-container {
+    align-items: flex-start;
+    gap: 14px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .cn-global-header .cn-container {
+    padding: 0 16px;
+  }
+
+  .cn-logo-svg,
+  .cn-logo-image {
+    height: 58px;
+  }
+
+  .cn-mid-section {
+    padding: 16px 0;
+  }
+
+  .cn-university-trigger {
+    min-width: 124px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .cn-nav-ul {
+    gap: 16px;
+  }
+
+  .cn-conference-schools {
+    gap: 18px;
+    padding: 18px;
+  }
+}

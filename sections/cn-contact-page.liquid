@@ -1,0 +1,99 @@
+{{ 'college-nation-pages.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-page">
+  <div class="cn-page-container" style="--cn-page-padding-top: {{ section.settings.padding_top }}px; --cn-page-padding-bottom: {{ section.settings.padding_bottom }}px;">
+    {%- if section.settings.show_breadcrumbs -%}
+      {%- render 'cn-breadcrumb', title: section.settings.heading -%}
+    {%- endif -%}
+
+    <h1 class="cn-page-title">{{ section.settings.heading }}</h1>
+    <p class="cn-page-subtitle">{{ section.settings.subheading }}</p>
+
+    <div class="cn-contact-body">
+      {%- form 'contact', class: 'cn-contact-form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="cn-contact-message cn-contact-message-success" role="status">{{ section.settings.success_message }}</p>
+        {%- elsif form.errors -%}
+          <div class="cn-contact-message cn-contact-message-error" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+
+        <div class="cn-contact-grid">
+          <div class="cn-contact-field">
+            <label for="ContactFormName-{{ section.id }}">{{ section.settings.name_label }}</label>
+            <input id="ContactFormName-{{ section.id }}" type="text" name="contact[name]" placeholder="{{ section.settings.name_label | escape }}" value="{% if form.name %}{{ form.name }}{% endif %}">
+          </div>
+          <div class="cn-contact-field">
+            <label for="ContactFormEmail-{{ section.id }}">{{ section.settings.email_label }} <span class="cn-contact-required">*</span></label>
+            <input id="ContactFormEmail-{{ section.id }}" type="email" name="contact[email]" placeholder="{{ section.settings.email_label | escape }}" value="{% if form.email %}{{ form.email }}{% endif %}" required autocomplete="email">
+          </div>
+          {%- if section.settings.show_phone -%}
+            <div class="cn-contact-field">
+              <label for="ContactFormPhone-{{ section.id }}">{{ section.settings.phone_label }} <span class="cn-contact-required">*</span></label>
+              <input id="ContactFormPhone-{{ section.id }}" type="tel" name="contact[phone]" placeholder="{{ section.settings.phone_label | escape }}" value="{% if form.phone %}{{ form.phone }}{% endif %}" {% if section.settings.phone_required %}required{% endif %} autocomplete="tel">
+            </div>
+          {%- endif -%}
+          {%- if section.settings.show_order -%}
+            <div class="cn-contact-field">
+              <label for="ContactFormOrder-{{ section.id }}">{{ section.settings.order_label }}</label>
+              <input id="ContactFormOrder-{{ section.id }}" type="text" name="contact[order_number]" placeholder="{{ section.settings.order_label | escape }}">
+            </div>
+          {%- endif -%}
+          <div class="cn-contact-field cn-contact-field-full">
+            <label for="ContactFormMessage-{{ section.id }}">{{ section.settings.message_label }}</label>
+            <textarea id="ContactFormMessage-{{ section.id }}" name="contact[body]" rows="7" placeholder="{{ section.settings.message_label | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+        </div>
+        <button type="submit" class="cn-contact-submit">{{ section.settings.button_label }}</button>
+      {%- endform -%}
+
+      <aside class="cn-contact-help">
+        <h2 class="cn-contact-help-title">{{ section.settings.help_heading }}</h2>
+        <p class="cn-contact-help-text">{{ section.settings.help_text }}</p>
+        <div class="cn-contact-help-item">
+          <span class="cn-contact-help-icon" aria-hidden="true">☎</span>
+          <div class="cn-contact-help-detail">
+            <strong>{{ section.settings.phone_heading }}</strong>
+            <a href="tel:{{ section.settings.phone_number | remove: '(' | remove: ')' | remove: '-' | remove: ' ' }}">{{ section.settings.phone_number }}</a>
+          </div>
+        </div>
+        <div class="cn-contact-help-item">
+          <span class="cn-contact-help-icon" aria-hidden="true">✉</span>
+          <div class="cn-contact-help-detail">
+            <strong>{{ section.settings.email_heading }}</strong>
+            <a href="mailto:{{ section.settings.email_address }}">{{ section.settings.email_address }}</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CN contact page",
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumbs", "label": "Show breadcrumbs", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Contact Us" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Your satisfaction is important to us! Chat or text us your questions about products, online orders, experiences and more." },
+    { "type": "text", "id": "name_label", "label": "Name label", "default": "Name" },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Email" },
+    { "type": "checkbox", "id": "show_phone", "label": "Show phone field", "default": true },
+    { "type": "checkbox", "id": "phone_required", "label": "Require phone", "default": true },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "Phone Number" },
+    { "type": "checkbox", "id": "show_order", "label": "Show order number field", "default": true },
+    { "type": "text", "id": "order_label", "label": "Order label", "default": "Order Number" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Your message" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Submit Now" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thanks! Your message has been sent. We'll get back to you soon." },
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help?" },
+    { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Have any questions or concerns with your experience with College Nation? Contact us today." },
+    { "type": "text", "id": "phone_heading", "label": "Phone heading", "default": "Call Us" },
+    { "type": "text", "id": "phone_number", "label": "Phone number", "default": "(800)-381-5151" },
+    { "type": "text", "id": "email_heading", "label": "Email heading", "default": "Email Us" },
+    { "type": "text", "id": "email_address", "label": "Email address", "default": "customerservice@collegenation.com" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "presets": [{ "name": "CN contact page" }]
+}
+{% endschema %}

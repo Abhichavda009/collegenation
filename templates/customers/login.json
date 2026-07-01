@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "cn-customer-login",
+      "settings": {
+        "heading": "Sign in",
+        "subheading": "Sign in or create an account",
+        "login_label": "Sign in",
+        "recover_heading": "Reset password",
+        "recover_text": "Enter your email and Shopify will send a reset link.",
+        "recover_label": "Send reset link"
+      }
+    }
+  },
+  "order": ["main"]
+}

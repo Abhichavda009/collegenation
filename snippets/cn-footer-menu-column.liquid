@@ -1,0 +1,14 @@
+<div class="cn-footer-col">
+  <h3 class="cn-footer-col-title">{{ title }}</h3>
+  <ul class="cn-footer-list">
+    {%- if menu != blank and menu.links.size > 0 -%}
+      {%- for link in menu.links -%}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endfor -%}
+    {%- else -%}
+      <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
+      <li><a href="{{ routes.collections_url }}">Collections</a></li>
+      <li><a href="{{ routes.search_url }}">Search</a></li>
+    {%- endif -%}
+  </ul>
+</div>

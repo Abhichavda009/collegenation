@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "college_nation_footer": {
+      "type": "cn-footer",
+      "settings": {
+        "newsletter_heading": "JOIN THE COLLEGE CREW NEWSLETTER",
+        "newsletter_text": "For new drops, sales & stuff we don't post anywhere else.",
+        "newsletter_placeholder": "Enter your email",
+        "newsletter_button": "Sign Up",
+        "newsletter_disclaimer": "By subscribing you agree to the Terms of Use, Privacy Policy and Cookie Preference Policy.",
+        "collection_title": "Shop By Collection",
+        "collection_menu": "main-menu",
+        "university_title": "Shop By University",
+        "university_menu": "",
+        "legal_title": "Legal",
+        "legal_menu": "footer",
+        "support_title": "Customer Support",
+        "support_menu": "footer",
+        "instagram_url": "",
+        "tiktok_url": "",
+        "copyright_text": "© 2026 College Nation. Powered by P3 Media",
+        "follow_link": "",
+        "follow_label": "Follow on shop"
+      }
+    }
+  },
+  "order": [
+    "college_nation_footer"
+  ]
+}

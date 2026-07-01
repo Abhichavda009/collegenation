@@ -1,0 +1,13 @@
+# Keep `shopify theme dev`/`push` from trying to upload editor/atomic-save
+# temp files. These briefly appear next to a file while it is being saved
+# (e.g. templates/index.json.tmp.5848.9075ab011437) and Shopify rejects them
+# with "Must have a .liquid file extension".
+*.tmp
+*.tmp.*
+*.temp
+*.swp
+*.swx
+*~
+*.bak
+.DS_Store
+Thumbs.db

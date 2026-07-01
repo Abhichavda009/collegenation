@@ -1,0 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cn-faq-page",
+      "blocks": {
+        "faq_order_account": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Ordering & Accounts",
+            "question": "Do I need an account to place an order?",
+            "answer": "<p>No, you're welcome to check out as a guest. Creating an account lets you track orders, save your details, and check out faster next time.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_create_account": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Ordering & Accounts",
+            "question": "How do I create an account?",
+            "answer": "<p>Click Sign in at the top of the page, choose create an account, and enter your email.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_place_order": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Ordering & Accounts",
+            "question": "How do I place an order?",
+            "answer": "<p>Browse or search for your school's gear, pick your size and color, add the items to your bag, and proceed to checkout.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_shipping_time": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Shipping & Delivery",
+            "question": "How long does shipping take?",
+            "answer": "<p>Orders typically ship within 1-2 business days and arrive within 3-7 business days, depending on your location.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_free_shipping": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Shipping & Delivery",
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Yes. Enjoy free standard shipping on all orders over $45.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_returns": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Returns & Exchanges",
+            "question": "What is your return policy?",
+            "answer": "<p>We accept returns of unworn, unwashed items with their original tags within 30 days of delivery.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_license": {
+          "type": "faq_item",
+          "settings": {
+            "group": "Products & Sizing",
+            "question": "Are your products officially licensed?",
+            "answer": "<p>Yes, all College Nation apparel and merchandise is officially licensed by the universities and brands we carry.</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_order_account",
+        "faq_create_account",
+        "faq_place_order",
+        "faq_shipping_time",
+        "faq_free_shipping",
+        "faq_returns",
+        "faq_license"
+      ],
+      "settings": {
+        "show_breadcrumbs": true,
+        "heading": "FAQ",
+        "lead_title": "Your Ultimate College Gear Destination",
+        "lead_text": "<p>Welcome to College Nation, your one-stop shop for officially licensed college apparel and merchandise, bringing the spirit of your favorite universities right to your doorstep.</p>",
+        "padding_top": 24,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

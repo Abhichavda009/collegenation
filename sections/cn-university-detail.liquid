@@ -1,0 +1,97 @@
+{{ 'college-nation-pages.css' | asset_url | stylesheet_tag }}
+
+{%- assign featured_collection = section.settings.collection -%}
+
+<section class="cn-page">
+  <div class="cn-university-detail">
+    <section class="cn-university-hero" style="background-color: {{ section.settings.hero_background }};">
+      <h1>{{ section.settings.heading }}</h1>
+      <p>{{ section.settings.script_heading }}</p>
+    </section>
+
+    <nav class="cn-university-shortcuts" aria-label="{{ section.settings.heading | escape }} categories">
+      <a class="cn-university-shortcut" href="{{ section.settings.shop_all_link | default: routes.all_products_collection_url }}">
+        <span class="cn-university-shortcut-logo" style="background-color: {{ section.settings.logo_background }};">
+          <span style="color: {{ section.settings.logo_color }};">{{ section.settings.logo_text }}</span>
+        </span>
+        <span>{{ section.settings.shop_all_label }}</span>
+      </a>
+      {%- for block in section.blocks -%}
+        <a class="cn-university-shortcut" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <span class="cn-university-shortcut-img">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 180 | image_tag: loading: 'lazy', sizes: '80px', widths: '120, 180', alt: block.settings.label }}
+            {%- elsif block.settings.fallback_image_url != blank -%}
+              <img src="{{ block.settings.fallback_image_url }}" alt="{{ block.settings.label | escape }}" width="180" height="180" loading="lazy">
+            {%- endif -%}
+          </span>
+          <span>{{ block.settings.label }}</span>
+        </a>
+      {%- endfor -%}
+    </nav>
+
+    <section class="cn-university-tiles">
+      <a class="cn-university-promo" href="{{ section.settings.promo_link | default: routes.all_products_collection_url }}">
+        <h2>
+          <span>{{ section.settings.promo_line_1 }}</span>
+          <span>{{ section.settings.promo_line_2 }}</span>
+        </h2>
+      </a>
+      {%- if featured_collection != blank and featured_collection.products_count > 0 -%}
+        {%- for product in featured_collection.products limit: 2 -%}
+          <a class="cn-university-product-tile" href="{{ product.url }}">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', sizes: '(max-width: 980px) 100vw, 25vw', widths: '360, 540, 720', alt: product.title }}
+            {%- endif -%}
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <a class="cn-university-product-tile" href="{{ routes.all_products_collection_url }}"></a>
+        <a class="cn-university-product-tile" href="{{ routes.all_products_collection_url }}"></a>
+      {%- endif -%}
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CN university detail",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "University of Alabama" },
+    { "type": "text", "id": "script_heading", "label": "Script heading", "default": "Fan Gear" },
+    { "type": "color", "id": "hero_background", "label": "Hero background", "default": "#ded8d8" },
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "A" },
+    { "type": "color", "id": "logo_background", "label": "Logo background", "default": "#9e1b32" },
+    { "type": "color", "id": "logo_color", "label": "Logo color", "default": "#ffffff" },
+    { "type": "text", "id": "shop_all_label", "label": "Shop all label", "default": "Shop All" },
+    { "type": "url", "id": "shop_all_link", "label": "Shop all link" },
+    { "type": "collection", "id": "collection", "label": "Featured product collection" },
+    { "type": "text", "id": "promo_line_1", "label": "Promo line 1", "default": "Back" },
+    { "type": "text", "id": "promo_line_2", "label": "Promo line 2", "default": "in Action" },
+    { "type": "url", "id": "promo_link", "label": "Promo link" }
+  ],
+  "blocks": [
+    {
+      "type": "shortcut",
+      "name": "Shortcut",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "New Arrivals" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "fallback_image_url", "label": "Fallback image URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CN university detail",
+      "blocks": [
+        { "type": "shortcut", "settings": { "label": "New Arrivals" } },
+        { "type": "shortcut", "settings": { "label": "Men's" } },
+        { "type": "shortcut", "settings": { "label": "Women's" } },
+        { "type": "shortcut", "settings": { "label": "Hats" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

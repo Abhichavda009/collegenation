@@ -1,0 +1,57 @@
+{{ 'college-nation-home.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-home cn-universities" style="--cn-padding-top: {{ section.settings.padding_top }}px; --cn-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="cn-home-container">
+    <h2 class="cn-home-section-title">{{ section.settings.heading }}</h2>
+    <div class="cn-university-grid">
+      {%- for block in section.blocks -%}
+        <a class="cn-university-card" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <span class="cn-university-square" style="background-color: {{ block.settings.primary_color }};">
+            <span class="cn-university-logo" style="color: {{ block.settings.logo_color }}; font-size: {{ block.settings.logo_size }}px;">{{ block.settings.logo_text }}</span>
+          </span>
+          <span class="cn-university-foot">
+            <span class="cn-university-name">{{ block.settings.name }}</span>
+            <span class="cn-university-arrow" aria-hidden="true">&#8250;</span>
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CN university collections",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "University Collections" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "university",
+      "name": "University",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Alabama" },
+        { "type": "text", "id": "logo_text", "label": "Logo text", "default": "A" },
+        { "type": "range", "id": "logo_size", "label": "Logo size", "min": 32, "max": 96, "step": 2, "unit": "px", "default": 72 },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "color", "id": "primary_color", "label": "Primary color", "default": "#0d2343" },
+        { "type": "color", "id": "logo_color", "label": "Logo color", "default": "#ffffff" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CN university collections",
+      "blocks": [
+        { "type": "university", "settings": { "name": "Alabama", "logo_text": "A", "primary_color": "#9e1b32", "logo_color": "#ffffff" } },
+        { "type": "university", "settings": { "name": "Kansas", "logo_text": "KU", "primary_color": "#0051ba", "logo_color": "#ffffff", "logo_size": 56 } },
+        { "type": "university", "settings": { "name": "Michigan", "logo_text": "M", "primary_color": "#00274c", "logo_color": "#ffcb05" } },
+        { "type": "university", "settings": { "name": "UCLA", "logo_text": "UCLA", "primary_color": "#2774ae", "logo_color": "#ffffff", "logo_size": 52 } },
+        { "type": "university", "settings": { "name": "Villanova", "logo_text": "V", "primary_color": "#132247", "logo_color": "#ffffff" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

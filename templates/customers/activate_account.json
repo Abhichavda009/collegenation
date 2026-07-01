@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "cn-customer-activate-account",
+      "settings": {
+        "heading": "Activate account",
+        "subheading": "Create a password to activate your College Nation account.",
+        "activate_label": "Activate account",
+        "decline_label": "Decline invitation"
+      }
+    }
+  },
+  "order": ["main"]
+}

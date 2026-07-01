@@ -1,0 +1,60 @@
+{{ 'college-nation-customer.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-customer">
+  <div class="cn-customer__shell">
+    <a class="cn-customer__logo" href="{{ routes.root_url }}">COLLEGE NATION</a>
+
+    <div class="cn-account">
+      <nav class="cn-account__side" aria-label="Account navigation">
+        <a href="{{ routes.account_url }}">Orders</a>
+        <a href="{{ routes.account_addresses_url }}">Addresses</a>
+        <a href="{{ routes.account_logout_url }}">Logout</a>
+      </nav>
+
+      <main>
+        <div class="cn-account__header">
+          <div>
+            <h1>{{ order.name }}</h1>
+            <p class="cn-customer__sub">Placed {{ order.created_at | date: "%B %d, %Y" }}</p>
+          </div>
+          <a class="cn-customer__button cn-customer__button--secondary" href="{{ routes.account_url }}">Back to account</a>
+        </div>
+
+        <section class="cn-order__panel">
+          <h2>Order details</h2>
+          <div class="cn-order__items">
+            {%- for line_item in order.line_items -%}
+              <div class="cn-order__item">
+                {%- if line_item.image -%}
+                  {%- assign order_image_alt = line_item.image.alt | default: line_item.title -%}
+                  {{ line_item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: order_image_alt }}
+                {%- else -%}
+                  <span></span>
+                {%- endif -%}
+                <div>
+                  <strong>{{ line_item.title }}</strong>
+                  <p class="cn-customer__muted">Qty {{ line_item.quantity }}</p>
+                </div>
+                <span>{{ line_item.final_line_price | money }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div class="cn-order__totals">
+            <div><span>Subtotal</span><strong>{{ order.line_items_subtotal_price | money }}</strong></div>
+            <div><span>Shipping</span><strong>{{ order.shipping_price | money }}</strong></div>
+            <div><span>Tax</span><strong>{{ order.tax_price | money }}</strong></div>
+            <div><span>Total</span><strong>{{ order.total_price | money_with_currency }}</strong></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CollegeNation order",
+  "settings": []
+}
+{% endschema %}

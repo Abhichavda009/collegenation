@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cn-contact-page",
+      "settings": {
+        "show_breadcrumbs": true,
+        "heading": "Contact Us",
+        "subheading": "Your satisfaction is important to us! Chat or text us your questions about products, online orders, experiences and more.",
+        "name_label": "Name",
+        "email_label": "Email",
+        "show_phone": true,
+        "phone_required": true,
+        "phone_label": "Phone Number",
+        "show_order": true,
+        "order_label": "Order Number",
+        "message_label": "Your message",
+        "button_label": "Submit Now",
+        "success_message": "Thanks! Your message has been sent. We'll get back to you soon.",
+        "help_heading": "Need Help?",
+        "help_text": "Have any questions or concerns with your experience with College Nation? Contact us today.",
+        "phone_heading": "Call Us",
+        "phone_number": "(800)-381-5151",
+        "email_heading": "Email Us",
+        "email_address": "customerservice@collegenation.com",
+        "padding_top": 24,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
