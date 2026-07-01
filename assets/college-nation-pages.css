@@ -650,80 +650,6 @@
   font-size: 13px;
 }
 
-/* --- Store locator --- */
-.cn-storelocator-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-.cn-storelocator-card {
-  position: relative;
-  padding: 24px;
-  border-radius: 14px;
-  background: #f6f7f8;
-  border: 1px solid #eceef0;
-}
-.cn-storelocator-tag {
-  display: inline-block;
-  margin-bottom: 12px;
-  padding: 4px 12px;
-  border-radius: 30px;
-  background: #0d2343;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.cn-storelocator-name {
-  margin: 0 0 10px;
-  color: #0d2343;
-  font-size: 18px;
-  font-weight: 800;
-}
-.cn-storelocator-address {
-  margin: 0 0 10px;
-  color: #2a3441;
-  font-size: 15px;
-  line-height: 1.5;
-}
-.cn-storelocator-line {
-  margin: 4px 0;
-  color: #2a3441;
-  font-size: 14px;
-}
-.cn-storelocator-line a {
-  color: #0d2343;
-}
-.cn-storelocator-directions {
-  display: inline-block;
-  margin-top: 14px;
-  color: #e8453c;
-  font-weight: 800;
-  font-size: 14px;
-  text-decoration: none;
-}
-.cn-storelocator-directions:hover {
-  text-decoration: underline;
-}
-.cn-storelocator-empty {
-  padding: 40px;
-  text-align: center;
-  background: #f6f7f8;
-  border-radius: 14px;
-  color: #5b6572;
-  font-size: 16px;
-}
-.cn-storelocator-footer {
-  margin-top: 28px;
-  color: #5b6572;
-  font-size: 15px;
-}
-.cn-storelocator-footer a {
-  color: #0d2343;
-  font-weight: 700;
-}
-
 /* --- Team & group orders --- */
 .cn-team-perks {
   display: grid;
@@ -763,15 +689,11 @@
 
 /* --- Responsive for added pages --- */
 @media (max-width: 900px) {
-  .cn-storelocator-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .cn-team-perks {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 640px) {
-  .cn-storelocator-grid,
   .cn-team-perks {
     grid-template-columns: 1fr;
   }
