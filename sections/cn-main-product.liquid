@@ -197,7 +197,7 @@
               {%- for method in pay_methods -%}
                 {%- assign method_clean = method | strip -%}
                 {%- if method_clean != blank -%}
-                  <span class="cn-product-pay-chip">{{ method_clean }}</span>
+                  <span class="cn-product-pay-chip">{%- render 'cn-payment-icon', method: method_clean -%}</span>
                 {%- endif -%}
               {%- endfor -%}
             </div>
