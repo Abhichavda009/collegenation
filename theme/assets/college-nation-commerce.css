@@ -844,3 +844,49 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Product details (category / taxonomy metafields) */
+.cn-product-specs {
+  margin-top: 24px;
+}
+.cn-product-specs-title {
+  margin: 0 0 12px;
+  color: #0d2343;
+  font-size: 18px;
+  font-weight: 800;
+}
+.cn-spec-list {
+  margin: 0;
+}
+.cn-spec-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 8px 16px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid #eceef0;
+  font-size: 14px;
+}
+.cn-spec-label {
+  color: #6b7280;
+  font-weight: 600;
+}
+.cn-spec-value {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: #1f2937;
+}
+.cn-spec-chip {
+  padding: 2px 9px;
+  border-radius: 4px;
+  background: #f1f3f5;
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .cn-spec-row {
+    grid-template-columns: 120px 1fr;
+  }
+}
