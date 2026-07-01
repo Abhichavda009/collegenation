@@ -1,0 +1,60 @@
+{{ 'college-nation-home.css' | asset_url | stylesheet_tag }}
+
+<section class="cn-home cn-catgrid" style="--cn-padding-top: {{ section.settings.padding_top }}px; --cn-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="cn-home-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="cn-catgrid-eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    <h2 class="cn-home-section-title">{{ section.settings.heading }}</h2>
+    <div class="cn-catgrid-grid">
+      {%- for block in section.blocks -%}
+        <a class="cn-catgrid-card" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <span class="cn-catgrid-media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(max-width: 700px) 45vw, 220px', widths: '220, 400, 600', alt: block.settings.label }}
+            {%- elsif block.settings.fallback_image_url != blank -%}
+              <img src="{{ block.settings.fallback_image_url }}" alt="{{ block.settings.label | escape }}" width="600" height="600" loading="lazy">
+            {%- endif -%}
+          </span>
+          <span class="cn-catgrid-label">{{ block.settings.label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CN category grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop By Category" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your Fit" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Tees" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "fallback_image_url", "label": "Fallback image URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CN category grid",
+      "blocks": [
+        { "type": "category", "settings": { "label": "Tees", "fallback_image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" } },
+        { "type": "category", "settings": { "label": "Hoodies", "fallback_image_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" } },
+        { "type": "category", "settings": { "label": "Hats", "fallback_image_url": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=80" } },
+        { "type": "category", "settings": { "label": "Accessories", "fallback_image_url": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80" } },
+        { "type": "category", "settings": { "label": "Gifts", "fallback_image_url": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
