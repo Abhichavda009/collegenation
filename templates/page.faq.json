@@ -53,7 +53,7 @@
           "settings": {
             "group": "Shipping & Delivery",
             "question": "Do you offer free shipping?",
-            "answer": "<p>Yes. Enjoy free standard shipping on all orders over $45.</p>",
+            "answer": "<p>Yes. Enjoy free standard shipping on all orders over ₹45.</p>",
             "open_by_default": false
           }
         },

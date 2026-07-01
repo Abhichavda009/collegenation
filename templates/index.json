@@ -362,7 +362,7 @@
     "cn_usp_bar": {
       "type": "cn-usp-bar",
       "blocks": {
-        "usp_shipping": { "type": "feature", "settings": { "icon": "🚚", "title": "Free Shipping", "subtitle": "On orders over $45" } },
+        "usp_shipping": { "type": "feature", "settings": { "icon": "🚚", "title": "Free Shipping", "subtitle": "On orders over ₹45" } },
         "usp_licensed": { "type": "feature", "settings": { "icon": "🎓", "title": "Officially Licensed", "subtitle": "Authentic campus gear" } },
         "usp_returns": { "type": "feature", "settings": { "icon": "🔁", "title": "Easy Returns", "subtitle": "30-day hassle free" } },
         "usp_secure": { "type": "feature", "settings": { "icon": "🔒", "title": "Secure Checkout", "subtitle": "Protected payments" } }
