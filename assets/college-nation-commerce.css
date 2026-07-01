@@ -890,3 +890,137 @@
     grid-template-columns: 120px 1fr;
   }
 }
+
+/* Color swatches */
+.cn-product-option--color .cn-product-option-label {
+  text-transform: none;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.cn-product-option-current {
+  font-weight: 700;
+}
+.cn-product-swatches {
+  gap: 12px;
+}
+.cn-product-swatch {
+  width: 60px;
+  height: 60px;
+  padding: 4px;
+  border: 1px solid #d3d8de;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cn-product-swatch-color {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.cn-product-swatch.is-active {
+  border-color: #111418;
+  box-shadow: 0 0 0 1px #111418;
+}
+
+/* Size boxes + size chart link */
+.cn-product-size-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: none;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.cn-product-sizechart-link {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #1f6feb;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cn-product-sizechart-link:hover {
+  text-decoration: underline;
+}
+.cn-product-size {
+  min-width: 54px;
+  text-align: center;
+  padding: 12px 10px;
+}
+
+/* Size chart popup */
+.cn-sizechart {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cn-sizechart[hidden] {
+  display: none;
+}
+.cn-sizechart-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 35, 67, 0.55);
+}
+.cn-sizechart-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow: auto;
+  padding: 28px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.cn-sizechart-x {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 26px;
+  line-height: 1;
+  color: #6b7280;
+  cursor: pointer;
+}
+.cn-sizechart-title {
+  margin: 0 0 16px;
+  color: #0d2343;
+  font-size: 22px;
+  font-weight: 800;
+}
+.cn-sizechart-table-wrap {
+  overflow-x: auto;
+}
+.cn-sizechart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cn-sizechart-table th,
+.cn-sizechart-table td {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #eceef0;
+}
+.cn-sizechart-table thead th {
+  background: #0d2343;
+  color: #ffffff;
+  font-weight: 700;
+}
+.cn-sizechart-table tbody tr:nth-child(even) {
+  background: #f6f7f8;
+}
