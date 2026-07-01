@@ -358,15 +358,65 @@
         "padding_top": 8,
         "padding_bottom": 80
       }
+    },
+    "cn_usp_bar": {
+      "type": "cn-usp-bar",
+      "blocks": {
+        "usp_shipping": { "type": "feature", "settings": { "icon": "🚚", "title": "Free Shipping", "subtitle": "On orders over $45" } },
+        "usp_licensed": { "type": "feature", "settings": { "icon": "🎓", "title": "Officially Licensed", "subtitle": "Authentic campus gear" } },
+        "usp_returns": { "type": "feature", "settings": { "icon": "🔁", "title": "Easy Returns", "subtitle": "30-day hassle free" } },
+        "usp_secure": { "type": "feature", "settings": { "icon": "🔒", "title": "Secure Checkout", "subtitle": "Protected payments" } }
+      },
+      "block_order": ["usp_shipping", "usp_licensed", "usp_returns", "usp_secure"],
+      "settings": { "padding_top": 24, "padding_bottom": 24 }
+    },
+    "cn_category_grid": {
+      "type": "cn-category-grid",
+      "blocks": {
+        "cat_tees": { "type": "category", "settings": { "label": "Tees", "link": "shopify://collections/all", "fallback_image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" } },
+        "cat_hoodies": { "type": "category", "settings": { "label": "Hoodies", "link": "shopify://collections/all", "fallback_image_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" } },
+        "cat_hats": { "type": "category", "settings": { "label": "Hats", "link": "shopify://collections/all", "fallback_image_url": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=80" } },
+        "cat_accessories": { "type": "category", "settings": { "label": "Accessories", "link": "shopify://collections/all", "fallback_image_url": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80" } },
+        "cat_gifts": { "type": "category", "settings": { "label": "Gifts", "link": "shopify://collections/all", "fallback_image_url": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" } }
+      },
+      "block_order": ["cat_tees", "cat_hoodies", "cat_hats", "cat_accessories", "cat_gifts"],
+      "settings": { "eyebrow": "Shop By Category", "heading": "Find Your Fit", "padding_top": 8, "padding_bottom": 72 }
+    },
+    "cn_brand_logos": {
+      "type": "cn-brand-logos",
+      "blocks": {
+        "brand_nike": { "type": "brand", "settings": { "name": "Nike" } },
+        "brand_champion": { "type": "brand", "settings": { "name": "Champion" } },
+        "brand_prostandard": { "type": "brand", "settings": { "name": "Pro Standard" } },
+        "brand_johnnieo": { "type": "brand", "settings": { "name": "Johnnie-O" } },
+        "brand_47": { "type": "brand", "settings": { "name": "'47 Brand" } },
+        "brand_colosseum": { "type": "brand", "settings": { "name": "Colosseum" } }
+      },
+      "block_order": ["brand_nike", "brand_champion", "brand_prostandard", "brand_johnnieo", "brand_47", "brand_colosseum"],
+      "settings": { "heading": "Officially Licensed Brands", "padding_top": 8, "padding_bottom": 64 }
+    },
+    "cn_testimonials": {
+      "type": "cn-testimonials",
+      "blocks": {
+        "review_1": { "type": "review", "settings": { "rating": 5, "quote": "The hoodie quality is unreal and it shipped fast. Reppin' my school everywhere now!", "author": "Jordan M.", "detail": "Alabama '26" } },
+        "review_2": { "type": "review", "settings": { "rating": 5, "quote": "Officially licensed gear at a fair price. Got my whole crew matching for game day.", "author": "Priya S.", "detail": "Michigan '25" } },
+        "review_3": { "type": "review", "settings": { "rating": 4, "quote": "Great fit and true to size. Ordered a gift for my little sister and she loves it.", "author": "Chris T.", "detail": "Kansas '27" } }
+      },
+      "block_order": ["review_1", "review_2", "review_3"],
+      "settings": { "eyebrow": "Reviews", "heading": "Loved On Campus", "padding_top": 8, "padding_bottom": 80 }
     }
   },
   "order": [
     "cn_hero_slider",
+    "cn_usp_bar",
     "cn_featured_products",
     "cn_promo_tiles",
+    "cn_category_grid",
     "cn_shop_by_collection",
     "cn_university_collections",
     "cn_lifestyle_banners",
-    "cn_trending_products"
+    "cn_trending_products",
+    "cn_brand_logos",
+    "cn_testimonials"
   ]
 }
