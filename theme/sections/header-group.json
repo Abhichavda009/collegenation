@@ -207,8 +207,8 @@
         "show_university_tray": true,
         "universities_link": "",
         "view_all_label": "View All",
-        "store_locator_label": "Find a Store",
-        "store_locator_link": "/pages/store-locator"
+        "store_locator_label": "",
+        "store_locator_link": ""
       }
     }
   },
