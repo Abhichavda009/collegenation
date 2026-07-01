@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "cn-store-locator",
+      "blocks": {
+        "store_alabama": { "type": "store", "settings": { "tag": "Retail Partner", "name": "Alabama Campus Bookstore", "address": "123 University Ave\nTuscaloosa, AL 35401", "hours": "Mon-Sat 9am-8pm" } },
+        "store_michigan": { "type": "store", "settings": { "tag": "Pop-Up", "name": "Michigan Game Day Tent", "address": "Central Campus\nAnn Arbor, MI 48109", "hours": "Home game weekends" } }
+      },
+      "block_order": ["store_alabama", "store_michigan"],
+      "settings": {
+        "show_breadcrumbs": true,
+        "heading": "Find a Store",
+        "subheading": "College Nation is online-first, but you can find us at these retail partners and campus pop-ups.",
+        "empty_text": "We're online-first for now. Follow us on social to hear about campus pop-ups near you!",
+        "padding_top": 24,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": ["main"]
+}
