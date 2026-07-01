@@ -404,6 +404,21 @@
       },
       "block_order": ["review_1", "review_2", "review_3"],
       "settings": { "eyebrow": "Reviews", "heading": "Loved On Campus", "padding_top": 8, "padding_bottom": 80 }
+    },
+    "cn_best_sellers": {
+      "type": "cn-best-sellers",
+      "settings": {
+        "heading": "Best Sellers This Week",
+        "collection": "all",
+        "product_limit": 10,
+        "link_label": "View All",
+        "link": "shopify://collections/all",
+        "show_rank": true,
+        "show_rating": true,
+        "default_rating": 5,
+        "padding_top": 8,
+        "padding_bottom": 72
+      }
     }
   },
   "order": [
@@ -413,6 +428,7 @@
     "cn_promo_tiles",
     "cn_category_grid",
     "cn_shop_by_collection",
+    "cn_best_sellers",
     "cn_university_collections",
     "cn_lifestyle_banners",
     "cn_trending_products",
