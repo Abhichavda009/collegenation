@@ -32,15 +32,40 @@
     section.dataset.cnInitialized = 'true';
 
     const mainImage = section.querySelector('[data-cn-main-image]');
-    section.querySelectorAll('[data-cn-thumb]').forEach((thumb) => {
-      thumb.addEventListener('click', () => {
-        if (!mainImage) return;
-        mainImage.src = thumb.dataset.cnImageSrc;
-        mainImage.srcset = thumb.dataset.cnImageSrcset || '';
-        section.querySelectorAll('[data-cn-thumb]').forEach((item) => item.classList.remove('is-active'));
-        thumb.classList.add('is-active');
-      });
+    const thumbs = Array.from(section.querySelectorAll('[data-cn-thumb]'));
+    let galleryIndex = Math.max(0, thumbs.findIndex((t) => t.classList.contains('is-active')));
+
+    const activateThumb = (thumb, index) => {
+      if (!mainImage || !thumb) return;
+      mainImage.src = thumb.dataset.cnImageSrc;
+      mainImage.srcset = thumb.dataset.cnImageSrcset || '';
+      thumbs.forEach((item) => item.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+      if (typeof index === 'number') galleryIndex = index;
+    };
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => activateThumb(thumb, index));
     });
+
+    if (section.dataset.cnGalleryAutoplay === 'true' && thumbs.length > 1) {
+      const galleryInterval = Number(section.dataset.cnGalleryInterval || 4) * 1000;
+      let galleryTimer;
+      const startGallery = () => {
+        window.clearInterval(galleryTimer);
+        galleryTimer = window.setInterval(() => {
+          const next = (galleryIndex + 1) % thumbs.length;
+          activateThumb(thumbs[next], next);
+        }, galleryInterval);
+      };
+      const stopGallery = () => window.clearInterval(galleryTimer);
+      const gallery = mainImage ? mainImage.closest('.cn-product-gallery') : section;
+      if (gallery) {
+        gallery.addEventListener('mouseenter', stopGallery);
+        gallery.addEventListener('mouseleave', startGallery);
+      }
+      startGallery();
+    }
 
     const variantSelect = section.querySelector('[data-cn-variant-select]');
     const addButton = section.querySelector('[data-cn-add-button]');

@@ -42,7 +42,7 @@
   }
 </script>
 
-<section class="cn-commerce" data-cn-product>
+<section class="cn-commerce" data-cn-product data-cn-gallery-autoplay="{{ section.settings.autoplay_gallery }}" data-cn-gallery-interval="{{ section.settings.autoplay_interval }}">
   <div class="cn-product-inner">
     <nav class="cn-commerce-crumbs" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
@@ -373,6 +373,9 @@
     { "type": "text", "id": "add_to_cart_label", "label": "Add to cart label", "default": "Add To Cart" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold Out" },
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout", "default": true },
+    { "type": "header", "content": "Image gallery" },
+    { "type": "checkbox", "id": "autoplay_gallery", "label": "Auto-scroll product images", "default": true },
+    { "type": "range", "id": "autoplay_interval", "label": "Auto-scroll interval (seconds)", "min": 2, "max": 10, "step": 1, "default": 4 },
     { "type": "header", "content": "Delivery estimate" },
     { "type": "checkbox", "id": "show_delivery", "label": "Show delivery estimate", "default": true },
     { "type": "text", "id": "delivery_prefix", "label": "Delivery prefix", "default": "Estimated delivery:" },
