@@ -229,14 +229,18 @@
                 {%- for key in spec_keys -%}
                   {%- assign spec_mf = product.metafields.shopify[key] -%}
                   {%- if spec_mf != blank -%}
-                    {%- assign spec_vals = spec_mf.value -%}
                     <div class="cn-spec-row">
                       <dt class="cn-spec-label">{{ spec_labels[forloop.index0] }}</dt>
                       <dd class="cn-spec-value">
-                        {%- if spec_vals.first != blank -%}
-                          {%- for v in spec_vals -%}<span class="cn-spec-chip">{{ v.label | default: v }}</span>{%- endfor -%}
+                        {%- assign spec_type = spec_mf.type -%}
+                        {%- if spec_type contains 'list.metaobject' -%}
+                          {%- for v in spec_mf.value -%}<span class="cn-spec-chip">{{ v.label }}</span>{%- endfor -%}
+                        {%- elsif spec_type contains 'metaobject' -%}
+                          <span class="cn-spec-chip">{{ spec_mf.value.label }}</span>
+                        {%- elsif spec_type contains 'list.' -%}
+                          {%- for v in spec_mf.value -%}<span class="cn-spec-chip">{{ v }}</span>{%- endfor -%}
                         {%- else -%}
-                          <span class="cn-spec-chip">{{ spec_vals.label | default: spec_vals }}</span>
+                          <span class="cn-spec-chip">{{ spec_mf.value }}</span>
                         {%- endif -%}
                       </dd>
                     </div>
