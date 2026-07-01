@@ -34,7 +34,9 @@
         "payment_methods": "Visa, Mastercard, UPI, PayPal, Amex, RuPay",
         "shipping_label": "Shipping Details",
         "shipping_link": "",
-        "specifications_heading": "Specifications"
+        "specifications_heading": "Specifications",
+        "show_specs": true,
+        "specs_heading": "Product Details"
       }
     },
     "product_recommendations_qggXJq": {

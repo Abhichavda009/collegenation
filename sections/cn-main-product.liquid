@@ -212,6 +212,41 @@
           {%- endif -%}
         </div>
 
+        {%- if section.settings.show_specs -%}
+          {%- assign spec_labels = 'Color,Size,Fabric,Age group,Neckline,Sleeve length,Target gender,Top length,Sleeve style,Stretch level,Decoration,Care instructions,Clothing features' | split: ',' -%}
+          {%- assign spec_keys = 'color-pattern,size,fabric,age-group,neckline,sleeve-length-type,target-gender,top-length-type,sleeve-style,stretch-level,decoration-technique,care-instructions,clothing-features' | split: ',' -%}
+          {%- assign spec_has = false -%}
+          {%- for key in spec_keys -%}
+            {%- if product.metafields.shopify[key] != blank -%}
+              {%- assign spec_has = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if spec_has -%}
+            <div class="cn-product-specs">
+              <h2 class="cn-product-specs-title">{{ section.settings.specs_heading }}</h2>
+              <dl class="cn-spec-list">
+                {%- for key in spec_keys -%}
+                  {%- assign spec_mf = product.metafields.shopify[key] -%}
+                  {%- if spec_mf != blank -%}
+                    {%- assign spec_vals = spec_mf.value -%}
+                    <div class="cn-spec-row">
+                      <dt class="cn-spec-label">{{ spec_labels[forloop.index0] }}</dt>
+                      <dd class="cn-spec-value">
+                        {%- if spec_vals.first != blank -%}
+                          {%- for v in spec_vals -%}<span class="cn-spec-chip">{{ v.label | default: v }}</span>{%- endfor -%}
+                        {%- else -%}
+                          <span class="cn-spec-chip">{{ spec_vals.label | default: spec_vals }}</span>
+                        {%- endif -%}
+                      </dd>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </dl>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
         {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
         {%- if accordion_blocks.size > 0 -%}
           <div class="cn-product-accordions">
@@ -271,7 +306,10 @@
     { "type": "header", "content": "Description & links" },
     { "type": "text", "id": "shipping_label", "label": "Shipping link label", "default": "Shipping Details" },
     { "type": "url", "id": "shipping_link", "label": "Shipping link" },
-    { "type": "text", "id": "specifications_heading", "label": "Specifications heading", "default": "Specifications" }
+    { "type": "text", "id": "specifications_heading", "label": "Specifications heading", "default": "Specifications" },
+    { "type": "header", "content": "Product details (category metafields)" },
+    { "type": "checkbox", "id": "show_specs", "label": "Show category attribute details", "default": true },
+    { "type": "text", "id": "specs_heading", "label": "Product details heading", "default": "Product Details" }
   ],
   "blocks": [
     {
