@@ -779,10 +779,21 @@
   gap: 8px;
 }
 .cn-product-pay-chip {
-  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 10px;
   border: 1px solid #e4e7ea;
   border-radius: 6px;
   background: #ffffff;
+}
+.cn-product-pay-chip .cn-pay-logo {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+.cn-product-pay-chip .cn-pay-text {
   color: #0d2343;
   font-size: 12px;
   font-weight: 700;

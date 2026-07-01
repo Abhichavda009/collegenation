@@ -1,0 +1,28 @@
+{%- comment -%}
+  Renders an inline-SVG logo for a payment method name.
+  Usage: {% render 'cn-payment-icon', method: 'Visa' %}
+  Unknown methods fall back to a styled text label.
+{%- endcomment -%}
+{%- liquid
+  assign key = method | downcase | strip | replace: ' ', '' | replace: '-', ''
+-%}
+{%- case key -%}
+  {%- when 'visa' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 48 16" role="img" aria-label="Visa"><text x="24" y="13" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" font-style="italic" fill="#1A1F71" letter-spacing="1">VISA</text></svg>
+  {%- when 'mastercard', 'master' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 48 30" role="img" aria-label="Mastercard"><circle cx="19" cy="15" r="10" fill="#EB001B"/><circle cx="29" cy="15" r="10" fill="#F79E1B"/><path d="M24 7.6a10 10 0 0 0 0 14.8 10 10 0 0 0 0-14.8z" fill="#FF5F00"/></svg>
+  {%- when 'amex', 'americanexpress' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 48 30" role="img" aria-label="American Express"><rect x="3" y="4" width="42" height="22" rx="3" fill="#2E77BC"/><text x="24" y="19" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8.5" font-weight="800" fill="#ffffff" letter-spacing="0.5">AMEX</text></svg>
+  {%- when 'paypal' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 58 16" role="img" aria-label="PayPal"><text x="1" y="13" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" font-style="italic" fill="#003087">Pay</text><text x="28" y="13" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" font-style="italic" fill="#009CDE">Pal</text></svg>
+  {%- when 'upi' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 52 20" role="img" aria-label="UPI"><path d="M2 4 L8 10 L2 16 Z" fill="#F47216"/><path d="M9 4 L15 10 L9 16 Z" fill="#0C8E43"/><text x="19" y="15" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#1A1A2E">UPI</text></svg>
+  {%- when 'rupay' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 60 16" role="img" aria-label="RuPay"><text x="1" y="13" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" font-style="italic" fill="#F47216">Ru</text><text x="23" y="13" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" font-style="italic" fill="#0C8E43">Pay</text></svg>
+  {%- when 'gpay', 'googlepay' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 62 16" role="img" aria-label="Google Pay"><text x="1" y="13" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#5F6368">G</text><text x="13" y="13" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#4285F4">Pay</text></svg>
+  {%- when 'maestro' -%}
+    <svg class="cn-pay-logo" viewBox="0 0 48 30" role="img" aria-label="Maestro"><circle cx="19" cy="15" r="10" fill="#0099DF"/><circle cx="29" cy="15" r="10" fill="#ED0006"/><path d="M24 7.6a10 10 0 0 0 0 14.8 10 10 0 0 0 0-14.8z" fill="#6C6BBD"/></svg>
+  {%- else -%}
+    <span class="cn-pay-text">{{ method }}</span>
+{%- endcase -%}
